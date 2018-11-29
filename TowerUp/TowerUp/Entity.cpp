@@ -64,3 +64,7 @@ void Entity::BecomeChildOf(Entity * newParent)
 		this->_parent->_childeren.push_back(this);
 	}
 }
+
+void Entity::OnCollision(const CollisionInfo &)
+{
+}

@@ -8,6 +8,7 @@
 #include <SFML\Graphics\Transformable.hpp>
 
 #include "Component.h"
+#include "Collidable.h"
 
 class Entity
 {
@@ -26,6 +27,8 @@ public:
 	
 	const std::list<Entity*> GetChilderen() const;
 	void BecomeChildOf(Entity*);
+	
+	virtual void OnCollision(const CollisionInfo&);
 
 private:
 	std::string _name;

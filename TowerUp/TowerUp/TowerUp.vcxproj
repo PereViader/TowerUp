@@ -153,12 +153,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Block.h" />
+    <ClInclude Include="Collidable.h" />
+    <ClInclude Include="CollisionInfo.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleCamera.h" />
+    <ClInclude Include="ModuleCollision.h" />
     <ClInclude Include="ModuleEntities.h" />
     <ClInclude Include="ModuleInput.h" />
     <ClInclude Include="ModuleRender.h" />
@@ -168,11 +172,15 @@
     <ClInclude Include="TowerBlock.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Collidable.cpp" />
+    <ClCompile Include="CollisionInfo.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Module.cpp" />
     <ClCompile Include="ModuleCamera.cpp" />
+    <ClCompile Include="ModuleCollision.cpp" />
     <ClCompile Include="ModuleEntities.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleRender.cpp" />
