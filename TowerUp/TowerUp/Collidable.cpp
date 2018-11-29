@@ -36,6 +36,11 @@ const sf::Vector2f & Collidable::GetOrigin() const
 	return _shape.getOrigin();
 }
 
+const sf::FloatRect Collidable::GetGlobalBounds() const
+{
+	return _shape.getGlobalBounds();
+}
+
 void Collidable::UpdateTransformable(const sf::Transformable &transformable)
 {
 	_transformable = transformable;

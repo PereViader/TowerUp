@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Game.h"
 
+#include "GameplaySceneLoader.h"
 
 Game::Game() :
 	_moduleRender(new ModuleRender()),
@@ -29,6 +30,8 @@ bool Game::Init()
 	{
 		initOk = (*module)->Init();
 	}
+
+	Load(GameplaySceneLoader());
 
 	return initOk;
 }
@@ -59,6 +62,11 @@ GameExitStatus Game::Play()
 	}
 
 	return ExitStatusForGame(updateStatus);
+}
+
+void Game::Load(const SceneLoader & sceneLoader)
+{
+	sceneLoader.LoadScene(*this);
 }
 
 ModuleInput & Game::Input()

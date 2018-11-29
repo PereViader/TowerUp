@@ -19,6 +19,7 @@ public:
 	const sf::Transformable& GetTransformable() const;
 	const sf::Vector2f& GetSize() const;
 	const sf::Vector2f& GetOrigin() const;
+	const sf::FloatRect GetGlobalBounds() const;
 
 	void UpdateTransformable(const sf::Transformable&);
 	void SetSize(const sf::Vector2f&);

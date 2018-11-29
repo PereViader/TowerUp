@@ -12,6 +12,7 @@
 #include "ModuleCamera.h"
 #include "ModuleTime.h"
 #include "ModuleCollision.h"
+#include "SceneLoader.h"
 
 
 enum class GameExitStatus
@@ -27,6 +28,8 @@ public:
 	~Game();
 
 	GameExitStatus Play();
+
+	void Load(const SceneLoader& sceneLoader);
 
 	ModuleInput& Input();
 	ModuleRender& Render();

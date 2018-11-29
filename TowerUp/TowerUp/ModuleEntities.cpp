@@ -58,8 +58,6 @@ Entity* ModuleEntities::FindByName(std::string name)
 
 bool ModuleEntities::Init()
 {
-	TowerBlock* towerBlock = new TowerBlock("Block");
-	AddEntityAndAttatchToRoot(towerBlock);
 	return true;
 }
 

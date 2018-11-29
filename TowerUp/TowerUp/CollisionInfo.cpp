@@ -2,9 +2,8 @@
 #include "CollisionInfo.h"
 
 
-CollisionInfo::CollisionInfo(const sf::Vector2f & localPoint, const sf::Vector2f & globalPoint, const sf::Vector2f & direction, const Collidable & collidable) :
-	localPoint(localPoint),
-	globalPoint(globalPoint),
+CollisionInfo::CollisionInfo(const sf::Vector2f & point, const sf::Vector2f & direction, const Collidable & collidable) :
+	point(point),
 	direction(direction),
 	collidable(collidable)
 {
