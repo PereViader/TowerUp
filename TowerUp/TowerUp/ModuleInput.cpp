@@ -23,6 +23,11 @@ UpdateStatus ModuleInput::PreUpdate()
 		{
 		case sf::Event::Closed:
 			return UpdateStatus::Stop;
+		case sf::Event::KeyPressed:
+			if (event.key.code == sf::Keyboard::Key::F1)
+			{
+				game->Collision().ToggleCollidableDrawing();
+			}
 		default:
 			//Not precessed
 			break;

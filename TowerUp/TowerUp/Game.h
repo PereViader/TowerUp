@@ -11,6 +11,7 @@
 #include "ModuleRender.h"
 #include "ModuleCamera.h"
 #include "ModuleTime.h"
+#include "ModuleCollision.h"
 
 
 enum class GameExitStatus
@@ -32,6 +33,7 @@ public:
 	ModuleEntities& Entities();
 	ModuleCamera& Camera();
 	ModuleTime& Time();
+	ModuleCollision& Collision();
 
 private:
 	bool Init();
@@ -44,6 +46,7 @@ private:
 	std::unique_ptr<ModuleRender> _moduleRender;
 	std::unique_ptr<ModuleCamera> _moduleCamera;
 	std::unique_ptr<ModuleTime> _moduleTime;
+	std::unique_ptr<ModuleCollision> _moduleCollision;
 
 };
 

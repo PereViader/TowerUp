@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "ModuleCollision.h"
+
+#include "Game.h"
+
 #include "CollisionInfo.h"
 
 CollisionInfo CreateCollisionInfoFor(const Collidable&, const Collidable&, const sf::FloatRect& intersection);
@@ -25,6 +28,11 @@ UpdateStatus ModuleCollision::Update()
 		}
 	}
 
+	if (_drawCollidables)
+	{
+		DrawCollidables();
+	}
+
 	return UpdateStatus::Continue;
 }
 
@@ -36,6 +44,19 @@ void ModuleCollision::AddCollidable(Collidable & collidable)
 void ModuleCollision::RemoveCollidable(Collidable & collidable)
 {
 	_collidables.remove(&collidable);
+}
+
+void ModuleCollision::ToggleCollidableDrawing()
+{
+	_drawCollidables = !_drawCollidables;
+}
+
+void ModuleCollision::DrawCollidables() const
+{
+	for (auto* collidable : _collidables)
+	{
+		game->Render().Draw(*collidable);
+	}
 }
 
 void ModuleCollision::CollisionCheck(Collidable & collidable1, Collidable & collidable2)

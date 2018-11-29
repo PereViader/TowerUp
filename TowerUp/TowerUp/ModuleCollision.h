@@ -16,10 +16,14 @@ public:
 	void AddCollidable(Collidable&);
 	void RemoveCollidable(Collidable&);
 
+	void ToggleCollidableDrawing();
+
 private:
+	void DrawCollidables() const;
 	void CollisionCheck(Collidable& collidable1, Collidable& collidable2);
 
 private:
 	std::list<Collidable*> _collidables;
+	bool _drawCollidables = false;
 };
 
