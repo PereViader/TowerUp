@@ -30,3 +30,8 @@ UpdateStatus Module::PostUpdate()
 {
 	return UpdateStatus::Continue;
 }
+
+bool Module::End()
+{
+	return true;
+}

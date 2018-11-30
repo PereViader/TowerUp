@@ -12,6 +12,7 @@
 #include "ModuleCamera.h"
 #include "ModuleTime.h"
 #include "ModuleCollision.h"
+#include "ModuleStorage.h"
 #include "SceneLoader.h"
 
 
@@ -29,7 +30,7 @@ public:
 
 	GameExitStatus Play();
 
-	void Load(const SceneLoader& sceneLoader);
+	void ChangeScene(const SceneLoader& sceneLoader);
 
 	ModuleInput& Input();
 	ModuleRender& Render();
@@ -37,10 +38,12 @@ public:
 	ModuleCamera& Camera();
 	ModuleTime& Time();
 	ModuleCollision& Collision();
+	ModuleStorage& Storage();
 
 private:
 	bool Init();
 	UpdateStatus Loop();
+	bool End();
 
 private:
 	std::list<Module*> _modules;
@@ -50,6 +53,7 @@ private:
 	std::unique_ptr<ModuleCamera> _moduleCamera;
 	std::unique_ptr<ModuleTime> _moduleTime;
 	std::unique_ptr<ModuleCollision> _moduleCollision;
+	std::unique_ptr<ModuleStorage> _moduleStorage;
 
 };
 

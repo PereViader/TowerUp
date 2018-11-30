@@ -9,9 +9,11 @@ Game::Game() :
 	_moduleEntities(new ModuleEntities()),
 	_moduleCamera(new ModuleCamera()),
 	_moduleTime(new ModuleTime()),
-	_moduleCollision(new ModuleCollision())
+	_moduleCollision(new ModuleCollision()),
+	_moduleStorage(new ModuleStorage())
 {
 	_modules.push_back(_moduleRender.get()); // the first because it will wait for target fps
+	_modules.push_back(_moduleStorage.get());
 	_modules.push_back(_moduleInput.get());
 	_modules.push_back(_moduleTime.get());
 	_modules.push_back(_moduleCamera.get());
@@ -21,6 +23,7 @@ Game::Game() :
 
 Game::~Game()
 {
+
 }
 
 bool Game::Init()
@@ -31,7 +34,7 @@ bool Game::Init()
 		initOk = (*module)->Init();
 	}
 
-	Load(GameplaySceneLoader());
+	ChangeScene(GameplaySceneLoader());
 
 	return initOk;
 }
@@ -44,6 +47,7 @@ GameExitStatus ExitStatusForGame(UpdateStatus updateStatus)
 	case UpdateStatus::Stop:
 		return GameExitStatus::Ok;
 	case UpdateStatus::Error:
+	default:
 		return GameExitStatus::Error;
 	}
 }
@@ -61,11 +65,19 @@ GameExitStatus Game::Play()
 		updateStatus = Loop();
 	}
 
+	if (updateStatus == UpdateStatus::Stop)
+	{
+		if (!End())
+		{
+			return GameExitStatus::Error;
+		}
+	}
+
 	return ExitStatusForGame(updateStatus);
 }
 
-void Game::Load(const SceneLoader & sceneLoader)
-{
+void Game::ChangeScene(const SceneLoader & sceneLoader)
+{  
 	sceneLoader.LoadScene(*this);
 }
 
@@ -99,6 +111,11 @@ ModuleCollision & Game::Collision()
 	return *_moduleCollision;
 }
 
+ModuleStorage & Game::Storage()
+{
+	return *_moduleStorage;
+}
+
 UpdateStatus Game::Loop()
 {
 	UpdateStatus updateStatus = UpdateStatus::Continue;
@@ -119,5 +136,16 @@ UpdateStatus Game::Loop()
 	}
 
 	return updateStatus;
+}
+
+bool Game::End()
+{
+	bool endOk = true;
+	for (auto module = _modules.begin(); module != _modules.end() && endOk; ++module)
+	{
+		endOk = (*module)->End();
+	}
+
+	return endOk;
 }
 

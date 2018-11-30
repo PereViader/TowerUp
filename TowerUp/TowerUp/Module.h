@@ -18,4 +18,6 @@ public:
 	virtual UpdateStatus PreUpdate();
 	virtual UpdateStatus Update();
 	virtual UpdateStatus PostUpdate();
+
+	virtual bool End();
 };
