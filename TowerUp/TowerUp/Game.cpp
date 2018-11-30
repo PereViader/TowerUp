@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Game.h"
 
-#include "GameplaySceneLoader.h"
+#include "MenuSceneLoader.h"
 
 Game::Game() :
 	_moduleRender(new ModuleRender()),
@@ -10,10 +10,12 @@ Game::Game() :
 	_moduleCamera(new ModuleCamera()),
 	_moduleTime(new ModuleTime()),
 	_moduleCollision(new ModuleCollision()),
-	_moduleStorage(new ModuleStorage())
+	_moduleStorage(new ModuleStorage()),
+	_moduleResources(new ModuleResources())
 {
 	_modules.push_back(_moduleRender.get()); // the first because it will wait for target fps
 	_modules.push_back(_moduleStorage.get());
+	_modules.push_back(_moduleResources.get());
 	_modules.push_back(_moduleInput.get());
 	_modules.push_back(_moduleTime.get());
 	_modules.push_back(_moduleCamera.get());
@@ -34,7 +36,10 @@ bool Game::Init()
 		initOk = (*module)->Init();
 	}
 
-	ChangeScene(GameplaySceneLoader());
+	if (initOk)
+	{
+		ChangeScene(MenuSceneLoader());
+	}
 
 	return initOk;
 }
@@ -114,6 +119,11 @@ ModuleCollision & Game::Collision()
 ModuleStorage & Game::Storage()
 {
 	return *_moduleStorage;
+}
+
+ModuleResources & Game::Resources()
+{
+	return *_moduleResources;
 }
 
 UpdateStatus Game::Loop()

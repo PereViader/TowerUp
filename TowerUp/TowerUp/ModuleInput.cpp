@@ -21,15 +21,24 @@ UpdateStatus ModuleInput::PreUpdate()
 	{
 		switch (event.type)
 		{
-		case sf::Event::Closed:
+		case sf::Event::Closed: // We closed the window -> stop the game
 			return UpdateStatus::Stop;
 		case sf::Event::KeyPressed:
-			if (event.key.code == sf::Keyboard::Key::F1)
+			switch (event.key.code)
 			{
+			case sf::Keyboard::Key::F1:
 				game->Collision().ToggleCollidableDrawing();
+				break;
+			case sf::Keyboard::Key::F2:
+				game->Camera().ToggleManualCameraControl();
+				break;
+			default:
+				//Not handled
+				break;
 			}
+
 		default:
-			//Not precessed
+			//Not handled
 			break;
 		}
 	}

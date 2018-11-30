@@ -14,6 +14,8 @@ public:
 	virtual bool Init() override;
 	virtual bool End() override;
 
+	bool HasValue(const std::string& name) const;
+
 	int GetInt(const std::string& name) const;
 	float GetFloat(const std::string& name) const;
 	std::string GetString(const std::string& name) const;

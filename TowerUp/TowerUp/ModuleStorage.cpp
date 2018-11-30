@@ -44,6 +44,11 @@ bool ModuleStorage::End()
 	return true;
 }
 
+bool ModuleStorage::HasValue(const std::string & name) const
+{
+	return _data.find(name) != _data.end();
+}
+
 int ModuleStorage::GetInt(const std::string& name) const
 {
 	return _data[name].get<int>();

@@ -39,36 +39,6 @@ UpdateStatus ModuleRender::PreUpdate()
 	return UpdateStatus::Continue;
 }
 
-UpdateStatus ModuleRender::Update()
-{
-	/*sf::Vector2f movement;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
-	{
-		movement.y += 0.25f;
-	}
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
-	{
-		movement.y -= 0.25f;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
-	{
-		movement.x += 0.25f;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
-	{
-		movement.x -= 0.25f;
-	}
-
-	game->Camera().Move(movement);
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
-	{
-		game->Camera().Reset();
-	}*/
-
-	return UpdateStatus::Continue;
-}
-
 UpdateStatus ModuleRender::PostUpdate()
 {
 	for (auto drawable : _renderQueue)

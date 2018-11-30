@@ -13,6 +13,7 @@
 #include "ModuleTime.h"
 #include "ModuleCollision.h"
 #include "ModuleStorage.h"
+#include "ModuleResources.h"
 #include "SceneLoader.h"
 
 
@@ -39,6 +40,7 @@ public:
 	ModuleTime& Time();
 	ModuleCollision& Collision();
 	ModuleStorage& Storage();
+	ModuleResources& Resources();
 
 private:
 	bool Init();
@@ -54,6 +56,7 @@ private:
 	std::unique_ptr<ModuleTime> _moduleTime;
 	std::unique_ptr<ModuleCollision> _moduleCollision;
 	std::unique_ptr<ModuleStorage> _moduleStorage;
+	std::unique_ptr<ModuleResources> _moduleResources;
 
 };
 

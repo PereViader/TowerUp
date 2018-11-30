@@ -21,7 +21,6 @@ public:
 	virtual bool Init() override;
 
 	virtual UpdateStatus PreUpdate() override;
-	virtual UpdateStatus Update() override;
 	virtual UpdateStatus PostUpdate() override;
 
 

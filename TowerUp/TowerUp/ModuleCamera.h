@@ -16,9 +16,16 @@ public:
 	void Reset();
 	void AddTrauma(float amount);
 
+	void ToggleManualCameraControl();
+
+private:
+	void ManualCameraControl();
+
+
 private:
 	//float _trauma;
 
 	sf::Vector2f _movement;
+	bool _manualCameraControl = false;
 };
 
