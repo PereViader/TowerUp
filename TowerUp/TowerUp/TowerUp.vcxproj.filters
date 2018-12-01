@@ -84,6 +84,9 @@
     <ClInclude Include="ModuleResources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameStarter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -147,6 +150,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ModuleResources.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStarter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

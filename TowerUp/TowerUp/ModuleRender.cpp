@@ -1,10 +1,11 @@
 #include "stdafx.h"
+#include "Globals.h"
 #include "ModuleRender.h"
 #include "Game.h"
 
 
 ModuleRender::ModuleRender() :
-	_window(new sf::RenderWindow(sf::VideoMode(720, 1280), "TowerUp", sf::Style::Close | sf::Style::Titlebar)),
+	_window(new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "TowerUp", sf::Style::Close | sf::Style::Titlebar)),
 	_worldView(new sf::View(_window->getView())),
 	_uiView(new sf::View(_window->getView()))
 {
