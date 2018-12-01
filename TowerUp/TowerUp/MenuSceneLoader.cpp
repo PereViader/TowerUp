@@ -6,6 +6,7 @@
 #include "ModuleEntities.h"
 #include "HighscoreDisplay.h"
 #include "GameStarter.h"
+#include "easylogging++.h"
 
 MenuSceneLoader::MenuSceneLoader()
 {
@@ -17,6 +18,8 @@ MenuSceneLoader::~MenuSceneLoader()
 
 void MenuSceneLoader::LoadScene(Game & game) const
 {
+	LOG(INFO) << "Loading Menu Scene";
+
 	ModuleEntities& entities = game.Entities();
 
 	Entity* highscoreDisplay = entities.AddEntityAndAttatchToRoot(new HighscoreDisplay());

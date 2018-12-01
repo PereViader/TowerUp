@@ -157,6 +157,7 @@
     <ClInclude Include="Collidable.h" />
     <ClInclude Include="CollisionInfo.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="easylogging++.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameplaySceneLoader.h" />
@@ -183,6 +184,7 @@
     <ClCompile Include="Collidable.cpp" />
     <ClCompile Include="CollisionInfo.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="easylogging++.cc" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameplaySceneLoader.cpp" />
