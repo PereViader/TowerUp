@@ -6,7 +6,7 @@
 
 #include "CollisionInfo.h"
 
-enum class POINT_POSITION {
+enum class Side {
 	LEFT,
 	RIGHT,
 	TOP,
@@ -15,7 +15,7 @@ enum class POINT_POSITION {
 
 CollisionInfo CreateCollisionInfoFor(const Collidable&, const Collidable&, const sf::FloatRect& intersection);
 void CalculatePointAndDirection(const Collidable & originCollidable, const Collidable & destinyCollidable, const sf::FloatRect& intersection, sf::Vector2f& point, sf::Vector2f& direction);
-POINT_POSITION DiscriminatePointPosition(float leftTopDistance, float leftBottomDistance, float rightTopDistance, float rightBottomDistance);
+Side NearestSide(float leftTopDistance, float leftBottomDistance, float rightTopDistance, float rightBottomDistance);
 
 
 ModuleCollision::ModuleCollision()
@@ -70,7 +70,6 @@ void ModuleCollision::DrawCollidables() const
 
 void ModuleCollision::CollisionCheck(Collidable & collidable1, Collidable & collidable2)
 {
-	
 	sf::FloatRect intersection;
 	bool doIntersect = collidable1.GetGlobalBounds().intersects(collidable2.GetGlobalBounds(), intersection);
 	if (doIntersect)
@@ -82,13 +81,14 @@ void ModuleCollision::CollisionCheck(Collidable & collidable1, Collidable & coll
 
 CollisionInfo CreateCollisionInfoFor(const Collidable &originCollidable, const Collidable &destinyCollidable, const sf::FloatRect& intersection)
 {
-	sf::Vector2f direction, point;
+	sf::Vector2f point, direction;
 	CalculatePointAndDirection(originCollidable, destinyCollidable, intersection, point, direction);
 
 	return CollisionInfo(point, direction, originCollidable);
 }
 
-POINT_POSITION DiscriminatePointPosition(float leftTopDistance, float leftBottomDistance, float rightTopDistance, float rightBottomDistance)
+//Tests which are the shortests to find the closest side
+Side NearestSide(float leftTopDistance, float leftBottomDistance, float rightTopDistance, float rightBottomDistance)
 {
 	float distances[4]{ leftTopDistance , leftBottomDistance , rightTopDistance, rightBottomDistance };
 	int first = 0, second = 1;
@@ -103,57 +103,60 @@ POINT_POSITION DiscriminatePointPosition(float leftTopDistance, float leftBottom
 
 	if (first + second == 1)//(first == 0 && second == 1 || first == 1 && second == 0)
 	{
-		return POINT_POSITION::LEFT;
+		return Side::LEFT;
 	}
 	else if (first + second == 2)//(first == 0 && second == 2 || first == 2 && second == 0)
 	{
-		return POINT_POSITION::TOP;
+		return Side::TOP;
 	}
 	else if (first + second == 4)//(first == 1 && second == 3 || first == 3 && second == 1)
 	{
-		return POINT_POSITION::BOTTOM;
+		return Side::BOTTOM;
 	}
 	else
 	{
-		return POINT_POSITION::RIGHT;
+		return Side::RIGHT;
 	}
 }
 
 
-//Calculates the magnitude from each corner of the rectangle to the point. Then tests which are the shortests to find the closest side and project the point to the side
+/*
+Calculates the magnitude from each corner of the destiny Collidable to the center of the collision intersection
+and projects the center of the intersection to the nearest side of the destiny collider
+*/
 void CalculatePointAndDirection(const Collidable & originCollidable, const Collidable & destinyCollidable, const sf::FloatRect& intersection, sf::Vector2f& point, sf::Vector2f& direction)
 {
-	const sf::FloatRect originBounds = originCollidable.GetGlobalBounds();
-	const sf::Vector2f intersectionCenter(intersection.left + intersection.width / 2.0f, intersection.top - intersection.height / 2.0f);
-	const sf::Vector2f leftTop = intersectionCenter - sf::Vector2f(originBounds.left, originBounds.top);
-	const sf::Vector2f leftBottom = intersectionCenter - sf::Vector2f(originBounds.left, originBounds.top - originBounds.height);
-	const sf::Vector2f rightTop = intersectionCenter - sf::Vector2f(originBounds.left + originBounds.width, originBounds.top);
-	const sf::Vector2f rightBottom = intersectionCenter - sf::Vector2f(originBounds.left + originBounds.width, originBounds.top - originBounds.height);
+	const sf::FloatRect bounds = destinyCollidable.GetGlobalBounds();
+	const sf::Vector2f intersectionCenter(intersection.left + intersection.width / 2.0f, intersection.top + intersection.height / 2.0f);
+	const sf::Vector2f leftTopVector = intersectionCenter - sf::Vector2f(bounds.left, bounds.top);
+	const sf::Vector2f leftBottomVector = intersectionCenter - sf::Vector2f(bounds.left, bounds.top + bounds.height);
+	const sf::Vector2f rightTopVector = intersectionCenter - sf::Vector2f(bounds.left + bounds.width, bounds.top);
+	const sf::Vector2f rightBottomVector = intersectionCenter - sf::Vector2f(bounds.left + bounds.width, bounds.top + bounds.height);
 
-	const float leftTopDistance = leftTop.x * leftTop.x + leftTop.y + leftTop.y;
-	const float leftBottomDistance = leftBottom.x * leftBottom.x + leftBottom.y + leftBottom.y;
-	const float rightTopDistance = rightTop.x * rightTop.x + rightTop.y + rightTop.y;
-	const float rightBottomDistance = rightBottom.x * rightBottom.x + rightBottom.y + rightBottom.y;
+	const float leftTopDistance = leftTopVector.x * leftTopVector.x + leftTopVector.y * leftTopVector.y;
+	const float leftBottomDistance = leftBottomVector.x * leftBottomVector.x + leftBottomVector.y * leftBottomVector.y;
+	const float rightTopDistance = rightTopVector.x * rightTopVector.x + rightTopVector.y * rightTopVector.y;
+	const float rightBottomDistance = rightBottomVector.x * rightBottomVector.x + rightBottomVector.y * rightBottomVector.y;
 
-	switch (DiscriminatePointPosition(leftTopDistance, leftBottomDistance, rightTopDistance, rightBottomDistance))
+	switch (NearestSide(leftTopDistance, leftBottomDistance, rightTopDistance, rightBottomDistance))
 	{
-	case POINT_POSITION::LEFT:
-		point = sf::Vector2f(leftBottom.x, intersectionCenter.y);
+	case Side::LEFT:
+		point = sf::Vector2f(bounds.left, intersectionCenter.y);
 		direction = sf::Vector2f(-1, 0);
 		break;
 
-	case POINT_POSITION::RIGHT:
-		point = sf::Vector2f(rightBottom.x, intersectionCenter.y);
+	case Side::RIGHT:
+		point = sf::Vector2f(bounds.left + bounds.width, intersectionCenter.y);
 		direction = sf::Vector2f(1, 0);
 		break;
-	case POINT_POSITION::BOTTOM:
-		point = sf::Vector2f(intersectionCenter.x, leftBottom.y);
-		direction = sf::Vector2f(0, -1);
-		break;
-	case POINT_POSITION::TOP:
-	default: // will never default, removes warning
-		point = sf::Vector2f(intersectionCenter.x, leftTop.y);
+	case Side::BOTTOM:
+		point = sf::Vector2f(intersectionCenter.x, bounds.top + bounds.height);
 		direction = sf::Vector2f(0, 1);
+		break;
+	case Side::TOP:
+	default: // will never default, removes warning
+		point = sf::Vector2f(intersectionCenter.x, bounds.top);
+		direction = sf::Vector2f(0, -1);
 		break;
 	}
 }
