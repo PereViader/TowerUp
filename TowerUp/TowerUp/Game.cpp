@@ -2,6 +2,7 @@
 #include "Game.h"
 
 #include "MenuSceneLoader.h"
+#include "easylogging++.h"
 
 Game::Game() :
 	_moduleRender(new ModuleRender()),
@@ -38,7 +39,7 @@ bool Game::Init()
 
 	if (initOk)
 	{
-		ChangeScene(MenuSceneLoader());
+		ChangeScene(std::make_unique<MenuSceneLoader>());
 	}
 
 	return initOk;
@@ -81,9 +82,10 @@ GameExitStatus Game::Play()
 	return ExitStatusForGame(updateStatus);
 }
 
-void Game::ChangeScene(const SceneLoader & sceneLoader)
+void Game::ChangeScene(std::unique_ptr<SceneLoader> sceneLoader)
 {  
-	sceneLoader.LoadScene(*this);
+	LOG(INFO) << "Requested Scene Change";
+	_sceneLoader = std::move(sceneLoader);
 }
 
 ModuleInput & Game::Input()
@@ -128,6 +130,8 @@ ModuleResources & Game::Resources()
 
 UpdateStatus Game::Loop()
 {
+	ExecuteSceneChangeIfAviable();
+
 	UpdateStatus updateStatus = UpdateStatus::Continue;
 
 	for (auto it = _modules.begin(); it != _modules.end() && updateStatus == UpdateStatus::Continue; ++it)
@@ -157,5 +161,19 @@ bool Game::End()
 	}
 
 	return endOk;
+}
+
+void Game::ExecuteSceneChangeIfAviable()
+{
+	if (_sceneLoader)
+	{
+		for (auto module : _modules)
+		{
+			module->OnPreSceneChange();
+		}
+
+		_sceneLoader->LoadScene(*this);
+		_sceneLoader.reset();
+	}
 }
 

@@ -10,6 +10,7 @@ public:
 	~ModuleCamera();
 
 	virtual UpdateStatus PostUpdate() override;
+	virtual void OnPreSceneChange() override;
 
 	void Move(sf::Vector2f movement);
 	void SetPosition(sf::Vector2f position);

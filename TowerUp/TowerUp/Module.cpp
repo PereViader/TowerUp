@@ -31,6 +31,10 @@ UpdateStatus Module::PostUpdate()
 	return UpdateStatus::Continue;
 }
 
+void Module::OnPreSceneChange()
+{
+}
+
 bool Module::End()
 {
 	return true;

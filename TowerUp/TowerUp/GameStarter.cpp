@@ -31,5 +31,5 @@ void GameStarter::Tick()
 
 void GameStarter::StartGame()
 {
-	game->ChangeScene(GameplaySceneLoader());
+	game->ChangeScene(std::make_unique<GameplaySceneLoader>());
 }

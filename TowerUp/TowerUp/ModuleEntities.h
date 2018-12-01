@@ -15,6 +15,7 @@ public:
 
 	virtual bool Init() override;
 	virtual UpdateStatus Update() override;
+	virtual void OnPreSceneChange() override;
 
 	Entity* RootEntity();
 

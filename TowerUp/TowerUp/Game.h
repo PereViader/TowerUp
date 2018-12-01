@@ -31,7 +31,7 @@ public:
 
 	GameExitStatus Play();
 
-	void ChangeScene(const SceneLoader& sceneLoader);
+	void ChangeScene(std::unique_ptr<SceneLoader> sceneLoader);
 
 	ModuleInput& Input();
 	ModuleRender& Render();
@@ -46,6 +46,7 @@ private:
 	bool Init();
 	UpdateStatus Loop();
 	bool End();
+	void ExecuteSceneChangeIfAviable();
 
 private:
 	std::list<Module*> _modules;
@@ -58,6 +59,7 @@ private:
 	std::unique_ptr<ModuleStorage> _moduleStorage;
 	std::unique_ptr<ModuleResources> _moduleResources;
 
+	std::unique_ptr<SceneLoader> _sceneLoader;
 };
 
 extern Game* game;

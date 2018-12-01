@@ -19,5 +19,6 @@ public:
 	virtual UpdateStatus Update();
 	virtual UpdateStatus PostUpdate();
 
+	virtual void OnPreSceneChange();
 	virtual bool End();
 };

@@ -54,6 +54,11 @@ UpdateStatus ModuleCamera::PostUpdate()
 	return UpdateStatus::Continue;
 }
 
+void ModuleCamera::OnPreSceneChange()
+{
+	Reset();
+}
+
 void ModuleCamera::Move(sf::Vector2f movement)
 {
 	_movement += movement;

@@ -77,6 +77,12 @@ UpdateStatus ModuleEntities::Update()
 	return UpdateStatus::Continue;
 }
 
+void ModuleEntities::OnPreSceneChange()
+{
+	Destroy(_rootEntity);
+	_rootEntity = new Entity("Root", EntityType::World);
+}
+
 Entity * ModuleEntities::RootEntity()
 {
 	 return _rootEntity;
