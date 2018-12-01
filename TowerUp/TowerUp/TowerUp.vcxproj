@@ -163,6 +163,7 @@
     <ClInclude Include="GameplaySceneLoader.h" />
     <ClInclude Include="GameStarter.h" />
     <ClInclude Include="Globals.h" />
+    <ClInclude Include="Ground.h" />
     <ClInclude Include="HighscoreDisplay.h" />
     <ClInclude Include="MenuSceneLoader.h" />
     <ClInclude Include="Module.h" />
@@ -189,6 +190,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameplaySceneLoader.cpp" />
     <ClCompile Include="GameStarter.cpp" />
+    <ClCompile Include="Ground.cpp" />
     <ClCompile Include="HighscoreDisplay.cpp" />
     <ClCompile Include="MenuSceneLoader.cpp" />
     <ClCompile Include="Module.cpp" />

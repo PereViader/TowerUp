@@ -16,6 +16,7 @@ public:
 	ModuleRender();
 	virtual ~ModuleRender();
 
+	void DrawDebugCircle(const sf::Vector2f& position, float ratius=5.0f);
 	void Draw(const sf::Drawable&, EntityType);
 	sf::RenderWindow& GetWindow() const;
 
@@ -29,6 +30,7 @@ public:
 	sf::View& GetUiView();
 
 private:
+	std::list<sf::CircleShape> _debugWorldCircleQueue;
 	std::list<const sf::Drawable*> _worldRenderQueue;
 	std::list<const sf::Drawable*> _uiRenderQueue;
 

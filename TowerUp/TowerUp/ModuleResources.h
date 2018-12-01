@@ -10,6 +10,14 @@ enum class FontType
 	Sansation
 };
 
+enum class TextureType
+{
+	Crate,
+	Ground,
+	Background
+};
+
+
 struct Fonts {
 	std::unique_ptr<sf::Font> sansation;
 };
@@ -27,8 +35,10 @@ public:
 
 private:
 	bool LoadFont(FontType, const char * path);
+	bool LoadTexture(TextureType, const char * path);
 
 private:
 	std::map<FontType,std::shared_ptr<sf::Font>> _fonts;
+	std::map<TextureType, std::shared_ptr<sf::Texture>> _textures;
 };
 

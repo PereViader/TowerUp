@@ -2,6 +2,8 @@
 #include "Game.h"
 
 #include "MenuSceneLoader.h"
+#include "GameplaySceneLoader.h"
+
 #include "easylogging++.h"
 
 Game::Game() :
@@ -39,7 +41,7 @@ bool Game::Init()
 
 	if (initOk)
 	{
-		ChangeScene(std::make_unique<MenuSceneLoader>());
+		ChangeScene(std::make_unique<GameplaySceneLoader>());
 	}
 
 	return initOk;

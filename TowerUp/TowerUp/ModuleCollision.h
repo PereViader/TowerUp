@@ -24,6 +24,6 @@ private:
 
 private:
 	std::list<Collidable*> _collidables;
-	bool _drawCollidables = false;
+	bool _drawCollidables = true;
 };
 

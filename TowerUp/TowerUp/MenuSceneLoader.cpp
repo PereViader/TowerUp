@@ -27,6 +27,4 @@ void MenuSceneLoader::LoadScene(Game & game) const
 
 	Entity* gameStarter = entities.AddEntityAndAttatchToRoot(new GameStarter());
 	gameStarter->GetTransformable().setPosition(WINDOW_WIDTH / 5.0f, WINDOW_HEIGHT / 2.0f);
-
-	//entities.AddEntityAndAttatchToRoot(new TowerBlock("Block"));
 }

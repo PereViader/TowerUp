@@ -19,12 +19,20 @@ ModuleRender::~ModuleRender()
 
 bool ModuleRender::Init()
 {
-	_window.reset(new sf::RenderWindow(sf::VideoMode(720, 1280), "TowerUp", sf::Style::Close | sf::Style::Titlebar));
 	_window->setFramerateLimit(60);
-	//_view.reset(new sf::View(_window->getDefaultView()));
-	//_window->setView(*_view);
+	_window->setVerticalSyncEnabled(true);
 
 	return true;
+}
+
+void ModuleRender::DrawDebugCircle(const sf::Vector2f & position, float ratius)
+{
+	sf::CircleShape circle(ratius);
+	circle.setOrigin(sf::Vector2f(ratius, ratius));
+	circle.setPosition(position);
+	circle.setFillColor(sf::Color::Magenta);
+
+	_debugWorldCircleQueue.push_back(circle);
 }
 
 void ModuleRender::Draw(const sf::Drawable & drawable, EntityType drawableType)
@@ -58,6 +66,12 @@ UpdateStatus ModuleRender::PostUpdate()
 		_window->draw(*drawable);
 	}
 	_worldRenderQueue.clear();
+
+	for (auto drawable : _debugWorldCircleQueue)
+	{
+		_window->draw(drawable);
+	}
+	_debugWorldCircleQueue.clear();
 
 	_window->setView(*_uiView);
 	for (auto drawable : _uiRenderQueue)
