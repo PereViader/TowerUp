@@ -4,7 +4,7 @@
 
 
 TowerBlock::TowerBlock(const std::string& name) :
-	Entity(name)
+	Entity(name, EntityType::World)
 {
 	_sprite.setSize(sf::Vector2f(18, 18));
 	_sprite.setOutlineThickness(2);
@@ -19,5 +19,5 @@ TowerBlock::~TowerBlock()
 
 void TowerBlock::LateTick()
 {
-	game->Render().Draw(_sprite);
+	game->Render().Draw(_sprite, GetEntityType());
 }

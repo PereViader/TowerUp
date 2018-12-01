@@ -47,10 +47,7 @@ UpdateStatus ModuleCamera::PostUpdate()
 		ManualCameraControl();
 	}
 
-	sf::RenderWindow& window = game->Render().GetWindow();
-	sf::View view = window.getView();
-	view.move(_movement);
-	window.setView(view);
+	game->Render().GetWorldView().move(_movement);
 
 	_movement = sf::Vector2f(0,0);
 
@@ -64,10 +61,7 @@ void ModuleCamera::Move(sf::Vector2f movement)
 
 void ModuleCamera::SetPosition(sf::Vector2f position)
 {
-	sf::RenderWindow& window = game->Render().GetWindow();
-	sf::View view = window.getView();
-	view.setCenter(position);
-	window.setView(view);
+	game->Render().GetWorldView().setCenter(position);
 }
 
 void ModuleCamera::Reset()

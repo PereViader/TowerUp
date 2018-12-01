@@ -13,6 +13,9 @@ public:
 	virtual void Tick() override;
 
 private:
-	sf::Text _text;
-};
+	void UpdateHighscoreText();
 
+private:
+	sf::Text _text;
+	int _previousHighscore = -1;
+};

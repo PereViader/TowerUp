@@ -3,7 +3,8 @@
 #include "Game.h"
 
 
-Entity::Entity(const std::string& name) :
+Entity::Entity(const std::string& name, EntityType entityType) :
+	_entityType(entityType),
 	_name(name)
 {
 }
@@ -19,6 +20,11 @@ void Entity::Tick()
 void Entity::LateTick()
 {
 
+}
+
+EntityType Entity::GetEntityType() const
+{
+	return _entityType;
 }
 
 const std::string & Entity::GetName()

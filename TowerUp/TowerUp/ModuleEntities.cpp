@@ -5,7 +5,7 @@
 
 ModuleEntities::ModuleEntities()
 {
-	_rootEntity = new Entity("Root");
+	_rootEntity = new Entity("Root", EntityType::World);
 }
 
 
@@ -13,10 +13,11 @@ ModuleEntities::~ModuleEntities()
 {
 }
 
-void ModuleEntities::AddEntityAndAttatchToRoot(Entity * entity)
+Entity * ModuleEntities::AddEntityAndAttatchToRoot(Entity * entity)
 {
 	_entities.push_back(entity);
 	entity->BecomeChildOf(_rootEntity);
+	return entity;
 }
 
 Entity * ModuleEntities::Instantiate()
@@ -26,7 +27,7 @@ Entity * ModuleEntities::Instantiate()
 
 Entity * ModuleEntities::Instantiate(Entity * parent)
 {
-	Entity* entity = new Entity("Entity");
+	Entity* entity = new Entity("Entity", EntityType::World);
 	_entities.push_back(entity);
 	entity->BecomeChildOf(parent);
 	return entity;

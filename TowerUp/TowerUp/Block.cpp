@@ -3,7 +3,7 @@
 
 
 Block::Block() :
-	Entity("Block")
+	Entity("Block", EntityType::World)
 {
 }
 

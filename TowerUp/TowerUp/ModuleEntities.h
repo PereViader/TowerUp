@@ -18,7 +18,7 @@ public:
 
 	Entity* RootEntity();
 
-	void AddEntityAndAttatchToRoot(Entity* entity);
+	Entity* AddEntityAndAttatchToRoot(Entity* entity);
 	Entity* Instantiate();
 	Entity* Instantiate(Entity* parent);
 	void Destroy(Entity*);

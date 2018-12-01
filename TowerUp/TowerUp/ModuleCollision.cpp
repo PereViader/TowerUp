@@ -64,7 +64,7 @@ void ModuleCollision::DrawCollidables() const
 {
 	for (auto* collidable : _collidables)
 	{
-		game->Render().Draw(*collidable);
+		game->Render().Draw(*collidable, EntityType::World);
 	}
 }
 

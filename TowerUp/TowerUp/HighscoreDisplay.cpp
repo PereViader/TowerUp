@@ -6,7 +6,7 @@
 const std::string HIGHSCORE("Highscore");
 
 HighscoreDisplay::HighscoreDisplay() :
-	Entity("HighscoreDisplay")
+	Entity("HighscoreDisplay", EntityType::UI)
 {
 	_text.setFont(*game->Resources().GetFont(FontType::Sansation));
 	_text.setCharacterSize(40);
@@ -26,6 +26,18 @@ HighscoreDisplay::~HighscoreDisplay()
 
 void HighscoreDisplay::Tick()
 {
-	_text.setString("HighScore: " + std::to_string(game->Storage().GetInt(HIGHSCORE)));
-	game->Render().Draw(_text);
+	UpdateHighscoreText();
+
+	_text.setPosition(GetTransformable().getPosition());
+	game->Render().Draw(_text, GetEntityType());
+}
+
+void HighscoreDisplay::UpdateHighscoreText()
+{
+	int currentHighscore = game->Storage().GetInt(HIGHSCORE);
+	if (currentHighscore != _previousHighscore)
+	{
+		_text.setString("HighScore: " + std::to_string(currentHighscore));
+		_previousHighscore = currentHighscore;
+	}
 }

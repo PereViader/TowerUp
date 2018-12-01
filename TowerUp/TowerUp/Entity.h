@@ -10,14 +10,22 @@
 #include "Component.h"
 #include "Collidable.h"
 
+enum class EntityType
+{
+	World,
+	UI
+};
+
 class Entity
 {
 public:
-	Entity(const std::string& name);
+	Entity(const std::string& name, EntityType entityType);
 	virtual ~Entity();
 
 	virtual void Tick();
 	virtual void LateTick();
+
+	EntityType GetEntityType() const;
 
 	const std::string& GetName();
 	void SetName(const std::string& name);
@@ -31,6 +39,7 @@ public:
 	virtual void OnCollision(const CollisionInfo&);
 
 private:
+	EntityType _entityType;
 	std::string _name;
 
 	Entity * _parent;
