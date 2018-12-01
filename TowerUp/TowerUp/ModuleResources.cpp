@@ -16,7 +16,7 @@ bool ModuleResources::Init()
 	if (!LoadFont(FontType::Sansation, "resources/fonts/sansation.ttf"))
 		return false;
 
-	if (!LoadTexture(TextureType::Crate, "resources/img/crate.png"))
+	if (!LoadTexture(TextureType::Block, "resources/img/crate.png"))
 		return false;
 
 	if(!LoadTexture(TextureType::Ground, "resources/img/ground.png"))
@@ -31,6 +31,11 @@ bool ModuleResources::Init()
 std::shared_ptr<sf::Font> ModuleResources::GetFont(FontType type) const
 {
 	return _fonts.at(type);
+}
+
+std::shared_ptr<sf::Texture> ModuleResources::GetTexture(TextureType type) const
+{
+	return _textures.at(type);
 }
 
 bool ModuleResources::LoadFont(FontType fontType, const char * path)

@@ -13,6 +13,9 @@ Collidable::Collidable(Entity& entity, const sf::Vector2f & size, const sf::Vect
 	_entity(&entity),
 	_shape(size)
 {
+	_shape.setFillColor(sf::Color::Transparent);
+	_shape.setOutlineThickness(3);
+	_shape.setOutlineColor(sf::Color::Red);
 	_shape.setOrigin(origin);
 }
 

@@ -8,9 +8,12 @@
 
 
 Block::Block() :
-	_collidable(*this, sf::Vector2f(40,40)),
+	_collidable(*this, sf::Vector2f(40.0f,40.0f)),
+	_shape(sf::Vector2f(40.0f, 40.0f)),
 	Entity("Block", EntityType::World)
 {
+	_shape.setTexture(game->Resources().GetTexture(TextureType::Block).get());
+	_shape.setOrigin(sf::Vector2f(20.0f, 20.0f));
 	game->Collision().AddCollidable(_collidable);
 }
 
@@ -34,8 +37,10 @@ void Block::Tick()
 {
 	GetTransformable().move(_velocity * game->Time().GetDeltaTime());
 	_collidable.UpdateTransformable(GetTransformable());
-	game->Render().DrawDebugCircle(GetTransformable().getPosition());
+	_shape.setPosition(GetTransformable().getPosition());
 
+	game->Render().Draw(_shape, GetEntityType());
+	game->Render().DrawDebugCircle(GetTransformable().getPosition());
 }
 
 void Block::OnCollision(const CollisionInfo & info)

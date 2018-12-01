@@ -12,7 +12,7 @@ enum class FontType
 
 enum class TextureType
 {
-	Crate,
+	Block,
 	Ground,
 	Background
 };
@@ -32,6 +32,7 @@ public:
 	virtual bool Init() override;
 
 	std::shared_ptr<sf::Font> GetFont(FontType) const;
+	std::shared_ptr<sf::Texture> GetTexture(TextureType) const;
 
 private:
 	bool LoadFont(FontType, const char * path);

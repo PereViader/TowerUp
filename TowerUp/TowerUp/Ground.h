@@ -13,5 +13,6 @@ public:
 
 public:
 	Collidable _collidable;
+	sf::RectangleShape _shape;
 };
 

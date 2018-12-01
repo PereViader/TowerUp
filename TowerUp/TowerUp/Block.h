@@ -19,5 +19,6 @@ public:
 private:
 	sf::Vector2f _velocity;
 	Collidable _collidable;
+	sf::RectangleShape _shape;
 };
 
