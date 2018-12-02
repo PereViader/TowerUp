@@ -9,7 +9,6 @@
 #include "easylogging++.h"
 
 Tower::Tower() :
-	_gameplayManager(static_cast<GameplayManager*>(game->Entities().FindByName("GameplayManager"))),
 	Entity("Tower", EntityType::World)
 {
 }
@@ -17,6 +16,11 @@ Tower::Tower() :
 
 Tower::~Tower()
 {
+}
+
+void Tower::Init()
+{
+	_gameplayManager = static_cast<GameplayManager*>(game->Entities().FindByName("GameplayManager"));
 }
 
 void Tower::TryPlaceBlock(Block & block, Ground & ground, const CollisionInfo & collisionInfo)
@@ -82,12 +86,12 @@ sf::Vector2f StackPositionVector(StackPosition stackPosition)
 	switch (stackPosition)
 	{
 	case StackPosition::Left:
-		return sf::Vector2f(-20, -40);
+		return sf::Vector2f(-BLOCK_SIZE/2.0f, -BLOCK_SIZE);
 	case StackPosition::Right:
-		return sf::Vector2f(20, -40);
+		return sf::Vector2f(BLOCK_SIZE/2.0f, -BLOCK_SIZE);
 	default: //Remove Warning
 	case StackPosition::Center:
-		return sf::Vector2f(0, -40);
+		return sf::Vector2f(0, -BLOCK_SIZE);
 	}
 }
 

@@ -12,16 +12,19 @@ HighscoreDisplay::HighscoreDisplay() :
 	_text.setCharacterSize(40);
 	_text.setPosition(170.f, 150.f);
 	_text.setFillColor(sf::Color::White);
-
-	if (!game->Storage().HasValue(HIGHSCORE))
-	{
-		game->Storage().SetInt(HIGHSCORE, 0);
-	}
 }
 
 
 HighscoreDisplay::~HighscoreDisplay()
 {
+}
+
+void HighscoreDisplay::Init()
+{
+	if (!game->Storage().HasValue(HIGHSCORE))
+	{
+		game->Storage().SetInt(HIGHSCORE, 0);
+	}
 }
 
 void HighscoreDisplay::Tick()

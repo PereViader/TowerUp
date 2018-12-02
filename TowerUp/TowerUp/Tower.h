@@ -20,6 +20,8 @@ public:
 	Tower();
 	virtual ~Tower();
 
+	virtual void Init() override;
+
 	void TryPlaceBlock(Block&, Ground&, const CollisionInfo &);
 	void TryPlaceBlock(Block&, TowerBlock&, const CollisionInfo &);
 

@@ -17,7 +17,7 @@ CollisionInfo BuildCollisionInfo(const Collidable&, const sf::FloatRect& interse
 void CalculatePointAndDirection(const Collidable & collidable, const sf::FloatRect& intersection, sf::Vector2f& point, sf::Vector2f& direction);
 Side NearestSide(float leftTopDistance, float leftBottomDistance, float rightTopDistance, float rightBottomDistance);
 
-
+ 
 ModuleCollision::ModuleCollision()
 {
 }
@@ -88,33 +88,28 @@ CollisionInfo BuildCollisionInfo(const Collidable &collidable, const sf::FloatRe
 }
 
 //Tests which are the shortests to find the closest side
-Side NearestSide(float leftTopDistance, float leftBottomDistance, float rightTopDistance, float rightBottomDistance)
+Side NearestSide(float top, float bottom, float left, float right)
 {
-	float distances[4]{ leftTopDistance , leftBottomDistance , rightTopDistance, rightBottomDistance };
-	int first = 0, second = 1;
+	float distances[4]{top , bottom, left, right};
+	int min = 0;
 	for (int i = 1; i < 4; ++i)
 	{
-		if (distances[first] >= distances[i])
+		if (distances[min] > distances[i])
 		{
-			second = first;
-			first = i;
+			min = i;
 		}
 	}
 
-	if (first + second == 1)//(first == 0 && second == 1 || first == 1 && second == 0)
+	switch (min)
 	{
-		return Side::LEFT;
-	}
-	else if (first + second == 2)//(first == 0 && second == 2 || first == 2 && second == 0)
-	{
+	case 0:
+	default: //Remove warning
 		return Side::TOP;
-	}
-	else if (first + second == 4)//(first == 1 && second == 3 || first == 3 && second == 1)
-	{
+	case 1:
 		return Side::BOTTOM;
-	}
-	else
-	{
+	case 2:
+		return Side::LEFT;
+	case 3:
 		return Side::RIGHT;
 	}
 }
@@ -128,7 +123,12 @@ void CalculatePointAndDirection(const Collidable & collidable, const sf::FloatRe
 {
 	const sf::FloatRect bounds = collidable.GetGlobalBounds();
 	const sf::Vector2f intersectionCenter(intersection.left + intersection.width / 2.0f, intersection.top + intersection.height / 2.0f);
-	const sf::Vector2f leftTopVector = intersectionCenter - sf::Vector2f(bounds.left, bounds.top);
+	const float topDistance = intersectionCenter.y - bounds.top;
+	const float bottomDistance = bounds.top + bounds.height - intersectionCenter.y;
+	const float leftDistance = intersectionCenter.x - bounds.left;
+	const float rightDistance = bounds.left + bounds.width - intersectionCenter.x;
+
+	/*const sf::Vector2f leftTopVector = intersectionCenter - sf::Vector2f(bounds.left, bounds.top);
 	const sf::Vector2f leftBottomVector = intersectionCenter - sf::Vector2f(bounds.left, bounds.top + bounds.height);
 	const sf::Vector2f rightTopVector = intersectionCenter - sf::Vector2f(bounds.left + bounds.width, bounds.top);
 	const sf::Vector2f rightBottomVector = intersectionCenter - sf::Vector2f(bounds.left + bounds.width, bounds.top + bounds.height);
@@ -136,9 +136,9 @@ void CalculatePointAndDirection(const Collidable & collidable, const sf::FloatRe
 	const float leftTopDistance = leftTopVector.x * leftTopVector.x + leftTopVector.y * leftTopVector.y;
 	const float leftBottomDistance = leftBottomVector.x * leftBottomVector.x + leftBottomVector.y * leftBottomVector.y;
 	const float rightTopDistance = rightTopVector.x * rightTopVector.x + rightTopVector.y * rightTopVector.y;
-	const float rightBottomDistance = rightBottomVector.x * rightBottomVector.x + rightBottomVector.y * rightBottomVector.y;
+	const float rightBottomDistance = rightBottomVector.x * rightBottomVector.x + rightBottomVector.y * rightBottomVector.y;*/
 
-	switch (NearestSide(leftTopDistance, leftBottomDistance, rightTopDistance, rightBottomDistance))
+	switch (NearestSide(topDistance, bottomDistance, leftDistance, rightDistance))
 	{
 	case Side::LEFT:
 		point = sf::Vector2f(bounds.left, intersectionCenter.y);

@@ -11,17 +11,25 @@
 
 
 Block::Block() :
-	_collidable(*this, sf::Vector2f(40.0f,40.0f)),
-	_shape(sf::Vector2f(40.0f, 40.0f)),
+	_collidable(*this, sf::Vector2f(BLOCK_SIZE, BLOCK_SIZE)),
+	_shape(sf::Vector2f(BLOCK_SIZE, BLOCK_SIZE)),
 	Entity("Block", EntityType::World)
 {
 	_shape.setTexture(game->Resources().GetTexture(TextureType::Block).get());
-	_shape.setOrigin(sf::Vector2f(20.0f, 20.0f));
-	game->Collision().AddCollidable(_collidable);
+	_shape.setOrigin(sf::Vector2f(BLOCK_SIZE/2.0f, BLOCK_SIZE/2.0f));
 }
 
 
 Block::~Block()
+{
+}
+
+void Block::Init()
+{
+	game->Collision().AddCollidable(_collidable);
+}
+
+void Block::Destroy()
 {
 	game->Collision().RemoveCollidable(_collidable);
 }
@@ -35,6 +43,8 @@ const sf::Vector2f & Block::GetVelocity() const
 {
 	return _velocity;
 }
+
+
 
 void Block::Tick()
 {

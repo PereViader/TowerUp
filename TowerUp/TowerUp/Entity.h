@@ -22,8 +22,10 @@ public:
 	Entity(const std::string& name, EntityType entityType);
 	virtual ~Entity();
 
+	virtual void Init();
 	virtual void Tick();
 	virtual void LateTick();
+	virtual void Destroy();
 
 	EntityType GetEntityType() const;
 
@@ -31,6 +33,7 @@ public:
 	void SetName(const std::string& name);
 
 	sf::Transformable& GetTransformable();
+	const sf::Transformable& GetTransformable() const;
 	sf::Transform GetTransform() const;
 	
 	const std::list<Entity*> GetChilderen() const;

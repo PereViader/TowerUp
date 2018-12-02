@@ -13,6 +13,10 @@ Entity::~Entity()
 {
 }
 
+void Entity::Init()
+{
+}
+
 void Entity::Tick()
 {
 }
@@ -20,6 +24,10 @@ void Entity::Tick()
 void Entity::LateTick()
 {
 
+}
+
+void Entity::Destroy()
+{
 }
 
 EntityType Entity::GetEntityType() const
@@ -38,6 +46,11 @@ void Entity::SetName(const std::string & name)
 }
 
 sf::Transformable & Entity::GetTransformable()
+{
+	return _transformable;
+}
+
+const sf::Transformable & Entity::GetTransformable() const
 {
 	return _transformable;
 }

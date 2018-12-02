@@ -14,10 +14,18 @@ Ground::Ground() :
 {
 	_shape.setOrigin(sf::Vector2f((float)WINDOW_WIDTH/2.0f, 0.0f));
 	_shape.setTexture(game->Resources().GetTexture(TextureType::Ground).get());
-	game->Collision().AddCollidable(_collidable);
 }
 
 Ground::~Ground()
+{
+}
+
+void Ground::Init()
+{
+	game->Collision().AddCollidable(_collidable);
+}
+
+void Ground::Destroy()
 {
 	game->Collision().RemoveCollidable(_collidable);
 }

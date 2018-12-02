@@ -8,17 +8,25 @@
 #include "Tower.h"
 
 TowerBlock::TowerBlock() :
-	_collidable(*this, sf::Vector2f(40.0f, 40.0f), sf::Vector2f(20.0f, 40.0f)),
-	_shape(sf::Vector2f(40.0f, 40.0f)),
+	_collidable(*this, sf::Vector2f(BLOCK_SIZE, BLOCK_SIZE), sf::Vector2f(BLOCK_SIZE/2.0f, BLOCK_SIZE)),
+	_shape(sf::Vector2f(BLOCK_SIZE, BLOCK_SIZE)),
 	Entity("TowerBlock", EntityType::World)
 {
 	_shape.setTexture(game->Resources().GetTexture(TextureType::Block).get());
-	_shape.setOrigin(sf::Vector2f(20.0f, 40.0f));
-	game->Collision().AddCollidable(_collidable);
+	_shape.setOrigin(sf::Vector2f(BLOCK_SIZE/2.0f, BLOCK_SIZE));
 }
 
 
 TowerBlock::~TowerBlock()
+{
+}
+
+void TowerBlock::Init()
+{
+	game->Collision().AddCollidable(_collidable);
+}
+
+void TowerBlock::Destroy()
 {
 	game->Collision().RemoveCollidable(_collidable);
 }
@@ -32,22 +40,6 @@ void TowerBlock::Tick()
 	game->Render().DrawDebugCircle(GetTransformable().getPosition());
 }
 
-/*void TowerBlock::OnCollision(const CollisionInfo & info)
-{
-	if (info.collidable.GetEntity().GetName() == "Block")
-	{
-		Block& block = static_cast<Block&>(info.collidable.GetEntity());
-		GameplayManager& gameplayManager = static_cast<GameplayManager&>(*game->Entities().FindByName("GameManager"));
-
-		
-		if (CanPlaceBlockOnTop(block))
-		{
-			tower.StackBlock(info.point);
-			gameplayManager.AwardScore(ScoreReward::Low);
-		}
-	}
-}*/
-
 void TowerBlock::SetIsTopBlock(bool value)
 {
 	_isTopBlock = value;
@@ -58,7 +50,33 @@ bool TowerBlock::IsTopBlock() const
 	return _isTopBlock;
 }
 
-bool TowerBlock::CanPlaceBlockOnTop(const Block &, const CollisionInfo &, StackPosition&)
+bool TowerBlock::CanPlaceBlockOnTop(const Block & block, const CollisionInfo & collisionInfo, StackPosition& stackPosition)
 {
-	return false;
+	return _isTopBlock && ExtractStackPosition(block, collisionInfo, stackPosition);
+}
+
+bool TowerBlock::ExtractStackPosition(const Block & block, const CollisionInfo & collisionInfo, StackPosition & stackPosition)
+{
+	float positionDelta = block.GetTransformable().getPosition().x - GetTransformable().getPosition().x;
+
+	if (positionDelta < -BLOCK_SIZE/2.0f || positionDelta > BLOCK_SIZE / 2.0f)
+	{
+		//block is to the sides and can not be stacked
+		return false;
+	}
+
+	if (positionDelta < -CENTER_BLOCK_STACK_MARGIN)
+	{
+		stackPosition = StackPosition::Left;
+	}
+	else if (positionDelta > CENTER_BLOCK_STACK_MARGIN)
+	{
+		stackPosition = StackPosition::Right;
+	}
+	else
+	{
+		stackPosition = StackPosition::Center;
+	}
+	
+	return true;
 }

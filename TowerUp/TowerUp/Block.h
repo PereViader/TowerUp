@@ -12,7 +12,9 @@ public:
 	void SetVelocity(const sf::Vector2f& velocity);
 	const sf::Vector2f& GetVelocity() const;
 
+	virtual void Init() override;
 	virtual void Tick() override;
+	virtual void Destroy() override;
 
 	virtual void OnCollision(const CollisionInfo&) override;
 

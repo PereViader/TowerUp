@@ -10,6 +10,7 @@ public:
 	HighscoreDisplay();
 	virtual ~HighscoreDisplay();
 
+	virtual void Init() override;
 	virtual void Tick() override;
 
 private:

@@ -28,11 +28,13 @@ public:
 	Entity* FindByName(std::string name);
 
 private:
-	void ExecuteEntityDestruction();
+	void ExecuteEntityDestroy();
+	void ExecuteEntityInit();
 
 public:
 	std::list<Entity*> _entities;
 	std::set<Entity*> _destroySet;
+	std::list<Entity*> _initList;
 	Entity * _rootEntity;
 };
 
