@@ -19,6 +19,9 @@ public:
 
 	void ToggleManualCameraControl();
 
+	sf::Vector2f MouseToWorldPosition() const;
+	sf::Vector2f ScreenToWorldPosition(const sf::Vector2i& screenPos) const;
+
 private:
 	void ManualCameraControl();
 

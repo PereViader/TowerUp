@@ -14,12 +14,20 @@ public:
 	GameplayManager();
 	virtual ~GameplayManager();
 
+	virtual void Tick() override;
+
 	void NextBlock();
 	void AwardScore(ScoreReward);
 	void LoseLifePoint();
 	void EndGameplay();
 
 private:
+	void PlaceBlockAtMousePosition();
+
+private:
 	int _lifePoints;
+
+	float _currentPlacementCooldown;
+	static const float PLACEMENT_COOLDOWN;
 };
 

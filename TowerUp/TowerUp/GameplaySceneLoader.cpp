@@ -29,10 +29,6 @@ void GameplaySceneLoader::LoadScene(Game& game) const
 	Tower * tower = static_cast<Tower*>(entities.AddEntityAndAttatchToRoot(new Tower()));
 	tower->GetTransformable().setPosition(sf::Vector2f(0, 0));
 
-	Block * block = static_cast<Block*>(entities.AddEntityAndAttatchToRoot(new Block()));
-	block->GetTransformable().setPosition(sf::Vector2f(0, -100));
-	block->SetVelocity(sf::Vector2f(0, 50));
-
 	Ground * ground = static_cast<Ground*>(entities.AddEntityAndAttatchToRoot(new Ground()));
 	ground->GetTransformable().setPosition(sf::Vector2f(0, 0));
 }

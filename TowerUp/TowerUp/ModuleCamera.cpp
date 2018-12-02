@@ -85,3 +85,13 @@ void ModuleCamera::ToggleManualCameraControl()
 {
 	_manualCameraControl = !_manualCameraControl;
 }
+
+sf::Vector2f ModuleCamera::MouseToWorldPosition() const
+{
+	return ScreenToWorldPosition(sf::Mouse::getPosition(game->Render().GetWindow()));
+}
+
+sf::Vector2f ModuleCamera::ScreenToWorldPosition(const sf::Vector2i& screenPos) const
+{
+	return game->Render().GetWindow().mapPixelToCoords(screenPos, game->Render().GetWorldView());
+}
