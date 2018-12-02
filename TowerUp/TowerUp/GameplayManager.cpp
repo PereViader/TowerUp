@@ -5,6 +5,7 @@
 #include "easylogging++.h"
 #include "ScoreDisplay.h"
 #include "MenuSceneLoader.h"
+#include "Camera.h"
 
 
 GameplayManager::GameplayManager() :
@@ -19,6 +20,7 @@ GameplayManager::~GameplayManager()
 void GameplayManager::Init()
 {
 	_scoreDisplay = static_cast<ScoreDisplay*>(game->Entities().FindByName("ScoreDisplay"));
+	_camera = static_cast<Camera*>(game->Entities().FindByName("Camera"));
 }
 
 void GameplayManager::Tick()
@@ -34,6 +36,7 @@ void GameplayManager::Tick()
 
 void GameplayManager::NextBlock()
 {
+	_camera->AimNextBlock();
 }
 
 void GameplayManager::AwardScore(ScoreReward scoreReward)

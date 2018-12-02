@@ -33,6 +33,7 @@ void Tower::TryPlaceBlock(Block & block, Ground & ground, const CollisionInfo & 
 	{
 		_gameplayManager->LoseLifePoint();
 	}
+	_gameplayManager->NextBlock();
 }
 
 void Tower::TryPlaceBlock(Block & block, TowerBlock & towerBlock, const CollisionInfo & collisionInfo)
@@ -46,6 +47,7 @@ void Tower::TryPlaceBlock(Block & block, TowerBlock & towerBlock, const Collisio
 	{
 		_gameplayManager->LoseLifePoint();
 	}
+	_gameplayManager->NextBlock();
 }
 
 void Tower::PlaceFirstBlock(const sf::Vector2f & position)

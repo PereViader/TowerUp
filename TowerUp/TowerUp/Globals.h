@@ -15,3 +15,5 @@ const float CENTER_BLOCK_STACK_MARGIN = 15;
 
 // Time between each block placement
 const float TIME_BETWEEN_BLOCKS = 1;
+
+const float CAMERA_SPEED = 5;

@@ -8,6 +8,7 @@ enum class ScoreReward
 };
 
 class ScoreDisplay;
+class Camera;
 
 class GameplayManager :
 	public Entity
@@ -34,5 +35,6 @@ private:
 	float _currentPlacementCooldown;
 
 	ScoreDisplay* _scoreDisplay;
+	Camera* _camera;
 };
 
