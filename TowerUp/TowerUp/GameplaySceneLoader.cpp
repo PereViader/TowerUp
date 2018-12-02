@@ -6,7 +6,7 @@
 #include "Block.h"
 #include "Ground.h"
 #include "Tower.h"
-#include "HighscoreDisplay.h"
+#include "ScoreDisplay.h"
 
 #include "easylogging++.h"
 
@@ -25,8 +25,8 @@ void GameplaySceneLoader::LoadScene(Game& game) const
 
 	ModuleEntities& entities = game.Entities();
 
-	Entity* highscoreDisplay = entities.AddEntityAndAttatchToRoot(new HighscoreDisplay());
-	highscoreDisplay->GetTransformable().setPosition(10, 5);
+	Entity* scoreDisplay = entities.AddEntityAndAttatchToRoot(new ScoreDisplay());
+	scoreDisplay->GetTransformable().setPosition(10, 5);
 
 	GameplayManager * gameplayManager = static_cast<GameplayManager*>(entities.AddEntityAndAttatchToRoot(new GameplayManager()));
 

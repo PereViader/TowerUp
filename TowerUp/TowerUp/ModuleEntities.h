@@ -14,7 +14,6 @@ public:
 	ModuleEntities();
 	~ModuleEntities();
 
-	virtual bool Init() override;
 	virtual UpdateStatus PreUpdate() override;
 	virtual UpdateStatus Update() override;
 	virtual void OnPreSceneChange() override;
@@ -30,6 +29,8 @@ public:
 private:
 	void ExecuteEntityDestroy();
 	void ExecuteEntityInit();
+
+	void ClearEntities();
 
 public:
 	std::list<Entity*> _entities;

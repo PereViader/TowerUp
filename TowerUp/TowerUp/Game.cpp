@@ -41,7 +41,7 @@ bool Game::Init()
 
 	if (initOk)
 	{
-		ChangeScene(std::make_unique<GameplaySceneLoader>());
+		ChangeScene(std::make_unique<MenuSceneLoader>());
 	}
 
 	return initOk;

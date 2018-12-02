@@ -3,7 +3,6 @@
 
 #include "Game.h"
 
-const std::string HIGHSCORE("Highscore");
 
 HighscoreDisplay::HighscoreDisplay() :
 	Entity("HighscoreDisplay", EntityType::UI)
@@ -21,26 +20,16 @@ HighscoreDisplay::~HighscoreDisplay()
 
 void HighscoreDisplay::Init()
 {
-	if (!game->Storage().HasValue(HIGHSCORE))
+	if (!game->Storage().HasValue("Highscore"))
 	{
-		game->Storage().SetInt(HIGHSCORE, 0);
+		game->Storage().SetInt("Highscore", 0);
 	}
+
+	_text.setString("HighScore: " + std::to_string(game->Storage().GetInt("Highscore")));
 }
 
 void HighscoreDisplay::Tick()
 {
-	UpdateHighscoreText();
-
 	_text.setPosition(GetTransformable().getPosition());
 	game->Render().Draw(_text, GetEntityType());
-}
-
-void HighscoreDisplay::UpdateHighscoreText()
-{
-	int currentHighscore = game->Storage().GetInt(HIGHSCORE);
-	if (currentHighscore != _previousHighscore)
-	{
-		_text.setString("HighScore: " + std::to_string(currentHighscore));
-		_previousHighscore = currentHighscore;
-	}
 }

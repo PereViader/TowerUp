@@ -5,12 +5,13 @@
 
 ModuleEntities::ModuleEntities()
 {
-	_rootEntity = new Entity("Root", EntityType::World);
+	ClearEntities();
 }
 
 
 ModuleEntities::~ModuleEntities()
 {
+
 }
 
 Entity * ModuleEntities::AddEntityAndAttatchToRoot(Entity * entity)
@@ -41,6 +42,14 @@ void ModuleEntities::Destroy(Entity * entity)
 Entity* ModuleEntities::FindByName(std::string name)
 {
 	for (auto entity : _entities)
+	{
+		if (entity->GetName() == name)
+		{
+			return entity;
+		}
+	}
+
+	for (auto entity : _initList)
 	{
 		if (entity->GetName() == name)
 		{
@@ -83,9 +92,29 @@ void ModuleEntities::ExecuteEntityInit()
 	_initList.clear();
 }
 
-bool ModuleEntities::Init()
+void ModuleEntities::ClearEntities()
 {
-	return true;
+	if (_rootEntity != nullptr)
+	{
+		for (Entity * entity : _entities)
+		{
+			entity->Destroy();
+			delete entity;
+		}
+
+		for (Entity * entity : _initList)
+		{
+			//Not yet init'ed no need to Destroy()
+			delete entity;
+		}
+	}
+
+	_entities.clear();
+	_initList.clear();
+	_destroySet.clear();
+
+	_rootEntity = new Entity("Root", EntityType::World);
+	_entities.push_front(_rootEntity);
 }
 
 UpdateStatus ModuleEntities::PreUpdate()
@@ -113,8 +142,7 @@ UpdateStatus ModuleEntities::Update()
 
 void ModuleEntities::OnPreSceneChange()
 {
-	Destroy(_rootEntity);
-	_rootEntity = new Entity("Root", EntityType::World);
+	ClearEntities();
 }
 
 Entity * ModuleEntities::RootEntity()

@@ -7,6 +7,8 @@ enum class ScoreReward
 	High = 200
 };
 
+class ScoreDisplay;
+
 class GameplayManager :
 	public Entity
 {
@@ -14,6 +16,7 @@ public:
 	GameplayManager();
 	virtual ~GameplayManager();
 
+	virtual void Init() override;
 	virtual void Tick() override;
 
 	void NextBlock();
@@ -26,8 +29,10 @@ private:
 
 private:
 	int _lifePoints;
+	int _score;
 
 	float _currentPlacementCooldown;
-	static const float PLACEMENT_COOLDOWN;
+
+	ScoreDisplay* _scoreDisplay;
 };
 

@@ -12,3 +12,6 @@ const float BLOCK_SIZE = 80.0f;
 // This means that this value must be <= BLOCK_SIZE/2.0f
 // because the margin can't be bigger than the block itself
 const float CENTER_BLOCK_STACK_MARGIN = 15;
+
+// Time between each block placement
+const float TIME_BETWEEN_BLOCKS = 1;

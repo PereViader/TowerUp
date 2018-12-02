@@ -3,8 +3,8 @@
 #include "Game.h"
 #include "Block.h"
 #include "easylogging++.h"
-
-const float GameplayManager::PLACEMENT_COOLDOWN = 1.0f;
+#include "ScoreDisplay.h"
+#include "MenuSceneLoader.h"
 
 
 GameplayManager::GameplayManager() :
@@ -12,9 +12,13 @@ GameplayManager::GameplayManager() :
 {
 }
 
-
 GameplayManager::~GameplayManager()
 {
+}
+
+void GameplayManager::Init()
+{
+	_scoreDisplay = static_cast<ScoreDisplay*>(game->Entities().FindByName("ScoreDisplay"));
 }
 
 void GameplayManager::Tick()
@@ -23,7 +27,7 @@ void GameplayManager::Tick()
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && _currentPlacementCooldown < 0)
 	{
-		_currentPlacementCooldown = PLACEMENT_COOLDOWN;
+		_currentPlacementCooldown = TIME_BETWEEN_BLOCKS;
 		PlaceBlockAtMousePosition();
 	}
 }
@@ -32,15 +36,17 @@ void GameplayManager::NextBlock()
 {
 }
 
-void GameplayManager::AwardScore(ScoreReward)
+void GameplayManager::AwardScore(ScoreReward scoreReward)
 {
+	_score += (int)scoreReward;
+	_scoreDisplay->SetScore(_score);
 }
 
 void GameplayManager::LoseLifePoint()
 {
-
 	_lifePoints -= 1;
-	if (_lifePoints == 0)
+	LOG(INFO) << "Lost life point. Current life points: " << _lifePoints;
+	if (_lifePoints <= 0)
 	{
 		EndGameplay();
 	}
@@ -48,6 +54,13 @@ void GameplayManager::LoseLifePoint()
 
 void GameplayManager::EndGameplay()
 {
+	int previousHighscore = game->Storage().GetInt("Highscore");
+	if (_score > previousHighscore)
+	{
+		game->Storage().SetInt("Highscore", _score);
+	}
+
+	game->ChangeScene(std::make_unique<MenuSceneLoader>());
 }
 
 void GameplayManager::PlaceBlockAtMousePosition()
