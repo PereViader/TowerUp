@@ -1,17 +1,30 @@
 #pragma once
 
 #include "Entity.h"
+#include "Tower.h"
 #include <SFML\Graphics\RectangleShape.hpp>
+
+class Block;
 
 class TowerBlock :
 	public Entity
 {
 public:
-	TowerBlock(const std::string& name);
+	TowerBlock();
 	virtual ~TowerBlock();
 
-	virtual void LateTick() override;
+	virtual void Tick() override;
+
+	//void OnCollision(const CollisionInfo & info);
+	void SetIsTopBlock(bool value);
+	bool IsTopBlock() const;
+	bool CanPlaceBlockOnTop(const Block&, const CollisionInfo&, StackPosition&);
 
 private:
-	sf::RectangleShape _sprite;
+
+private:
+	Collidable _collidable;
+	sf::RectangleShape _shape;
+
+	bool _isTopBlock = false;
 };

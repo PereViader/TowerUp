@@ -2,6 +2,7 @@
 
 #include "Module.h"
 #include <list>
+#include <set>
 #include <string>
 
 #include "Entity.h"
@@ -14,6 +15,7 @@ public:
 	~ModuleEntities();
 
 	virtual bool Init() override;
+	virtual UpdateStatus PreUpdate() override;
 	virtual UpdateStatus Update() override;
 	virtual void OnPreSceneChange() override;
 
@@ -25,8 +27,12 @@ public:
 	void Destroy(Entity*);
 	Entity* FindByName(std::string name);
 
+private:
+	void ExecuteEntityDestruction();
+
 public:
 	std::list<Entity*> _entities;
+	std::set<Entity*> _destroySet;
 	Entity * _rootEntity;
 };
 

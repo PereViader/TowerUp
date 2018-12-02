@@ -4,6 +4,8 @@
 #include "SFML\Graphics.hpp"
 #include "Game.h"
 
+#include "Tower.h"
+
 ModuleInput::ModuleInput()
 {
 }
@@ -32,6 +34,16 @@ UpdateStatus ModuleInput::PreUpdate()
 			case sf::Keyboard::Key::F2:
 				game->Camera().ToggleManualCameraControl();
 				break;
+			case sf::Keyboard::Key::Z:
+				((Tower*)game->Entities().FindByName("Tower"))->StackBlock(StackPosition::Left);
+				break;
+			case sf::Keyboard::Key::X:
+				((Tower*)game->Entities().FindByName("Tower"))->StackBlock(StackPosition::Center);
+				break;
+			case sf::Keyboard::Key::C:
+				((Tower*)game->Entities().FindByName("Tower"))->StackBlock(StackPosition::Right);
+				break;
+
 			default:
 				//Not handled
 				break;

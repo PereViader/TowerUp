@@ -5,6 +5,9 @@
 #include "ModuleTime.h"
 #include "easylogging++.h"
 #include "CollisionInfo.h"
+#include "Ground.h"
+#include "TowerBlock.h"
+#include "Tower.h"
 
 
 Block::Block() :
@@ -45,8 +48,17 @@ void Block::Tick()
 
 void Block::OnCollision(const CollisionInfo & info)
 {
-	LOG(INFO) << "Collision at: " + std::to_string(info.point.x) + ", " + std::to_string(info.point.y);
-
-	GetTransformable().setPosition(info.point);
-
+	//LOG(INFO) << "Collision at: " + std::to_string(info.point.x) + ", " + std::to_string(info.point.y);
+	Tower& tower = static_cast<Tower&>(*game->Entities().FindByName("Tower"));
+	if (info.collidable.GetEntity().GetName() == "Ground")
+	{
+		Ground & ground = static_cast<Ground&>(info.collidable.GetEntity());
+		tower.TryPlaceBlock(*this, ground, info);
+	}
+	else if (info.collidable.GetEntity().GetName() == "TowerBlock")
+	{
+		TowerBlock & towerBlock = static_cast<TowerBlock&>(info.collidable.GetEntity());
+		tower.TryPlaceBlock(*this, towerBlock, info);
+	}
+	game->Entities().Destroy(this);
 }

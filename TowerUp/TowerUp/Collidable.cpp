@@ -44,6 +44,11 @@ const sf::FloatRect Collidable::GetGlobalBounds() const
 	return _shape.getGlobalBounds();
 }
 
+Entity & Collidable::GetEntity() const
+{
+	return *_entity;
+}
+
 void Collidable::UpdateTransformable(const sf::Transformable &transformable)
 {
 	_transformable = transformable;

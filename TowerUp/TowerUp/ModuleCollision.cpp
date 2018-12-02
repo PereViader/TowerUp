@@ -13,8 +13,8 @@ enum class Side {
 	BOTTOM
 };
 
-CollisionInfo CreateCollisionInfoFor(const Collidable&, const Collidable&, const sf::FloatRect& intersection);
-void CalculatePointAndDirection(const Collidable & originCollidable, const Collidable & destinyCollidable, const sf::FloatRect& intersection, sf::Vector2f& point, sf::Vector2f& direction);
+CollisionInfo BuildCollisionInfo(const Collidable&, const sf::FloatRect& intersection);
+void CalculatePointAndDirection(const Collidable & collidable, const sf::FloatRect& intersection, sf::Vector2f& point, sf::Vector2f& direction);
 Side NearestSide(float leftTopDistance, float leftBottomDistance, float rightTopDistance, float rightBottomDistance);
 
 
@@ -74,17 +74,17 @@ void ModuleCollision::CollisionCheck(Collidable & collidable1, Collidable & coll
 	bool doIntersect = collidable1.GetGlobalBounds().intersects(collidable2.GetGlobalBounds(), intersection);
 	if (doIntersect)
 	{
-		collidable1.OnCollision(CreateCollisionInfoFor(collidable1, collidable2, intersection));
-		collidable2.OnCollision(CreateCollisionInfoFor(collidable2, collidable1, intersection));
+		collidable1.OnCollision(BuildCollisionInfo(collidable2, intersection));
+		collidable2.OnCollision(BuildCollisionInfo(collidable1, intersection));
 	}
 }
 
-CollisionInfo CreateCollisionInfoFor(const Collidable &originCollidable, const Collidable &destinyCollidable, const sf::FloatRect& intersection)
+CollisionInfo BuildCollisionInfo(const Collidable &collidable, const sf::FloatRect& intersection)
 {
 	sf::Vector2f point, direction;
-	CalculatePointAndDirection(originCollidable, destinyCollidable, intersection, point, direction);
+	CalculatePointAndDirection(collidable, intersection, point, direction);
 
-	return CollisionInfo(point, direction, originCollidable);
+	return CollisionInfo(point, direction, collidable);
 }
 
 //Tests which are the shortests to find the closest side
@@ -124,9 +124,9 @@ Side NearestSide(float leftTopDistance, float leftBottomDistance, float rightTop
 Calculates the magnitude from each corner of the destiny Collidable to the center of the collision intersection
 and projects the center of the intersection to the nearest side of the destiny collider
 */
-void CalculatePointAndDirection(const Collidable & originCollidable, const Collidable & destinyCollidable, const sf::FloatRect& intersection, sf::Vector2f& point, sf::Vector2f& direction)
+void CalculatePointAndDirection(const Collidable & collidable, const sf::FloatRect& intersection, sf::Vector2f& point, sf::Vector2f& direction)
 {
-	const sf::FloatRect bounds = destinyCollidable.GetGlobalBounds();
+	const sf::FloatRect bounds = collidable.GetGlobalBounds();
 	const sf::Vector2f intersectionCenter(intersection.left + intersection.width / 2.0f, intersection.top + intersection.height / 2.0f);
 	const sf::Vector2f leftTopVector = intersectionCenter - sf::Vector2f(bounds.left, bounds.top);
 	const sf::Vector2f leftBottomVector = intersectionCenter - sf::Vector2f(bounds.left, bounds.top + bounds.height);

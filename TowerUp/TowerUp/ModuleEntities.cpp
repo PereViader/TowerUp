@@ -35,13 +35,7 @@ Entity * ModuleEntities::Instantiate(Entity * parent)
 
 void ModuleEntities::Destroy(Entity * entity)
 {
-	for (auto child : entity->GetChilderen())
-	{
-		Destroy(child);
-	}
-
-	_entities.remove(entity);
-	delete entity;
+	_destroySet.insert(entity);
 }
 
 Entity* ModuleEntities::FindByName(std::string name)
@@ -57,9 +51,35 @@ Entity* ModuleEntities::FindByName(std::string name)
 	return nullptr;
 }
 
+void ModuleEntities::ExecuteEntityDestruction()
+{
+	while (_destroySet.size() > 0)
+	{
+		auto entityIt = _destroySet.begin();
+		Entity* entity = *entityIt;
+
+		for (Entity* child : entity->GetChilderen())
+		{
+			_destroySet.insert(child);
+		}
+
+		_entities.remove(entity);
+		delete entity;
+
+		_destroySet.erase(entityIt);
+	}
+	
+}
+
 bool ModuleEntities::Init()
 {
 	return true;
+}
+
+UpdateStatus ModuleEntities::PreUpdate()
+{
+	ExecuteEntityDestruction();
+	return UpdateStatus::Continue;
 }
 
 UpdateStatus ModuleEntities::Update()
