@@ -40,11 +40,9 @@ void GameplayManager::Init()
 
 void GameplayManager::LateTick()
 {
-	_currentPlacementCooldown -= game->Time().GetDeltaTime();
-
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && _currentPlacementCooldown < 0)
+	if (_canPlaceBlock && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 	{
-		_currentPlacementCooldown = TIME_BETWEEN_BLOCKS;
+		_canPlaceBlock = false;
 		PlaceBlockAtPosition(_swing->GetEndSwingPosition());
 	}
 }
@@ -62,6 +60,7 @@ void GameplayManager::NextBlock(BlockPlacement blockPlacement)
 	default:
 		break;
 	}
+	_canPlaceBlock = true;
 }
 
 void GameplayManager::AwardScore(ScoreReward scoreReward)

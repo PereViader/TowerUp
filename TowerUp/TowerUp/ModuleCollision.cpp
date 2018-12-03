@@ -5,6 +5,8 @@
 #include "Game.h"
 
 #include "CollisionInfo.h"
+#include "easylogging++.h"
+
 
 enum class Side {
 	LEFT,
@@ -37,7 +39,7 @@ UpdateStatus ModuleCollision::Update()
 		}
 	}
 
-	if (_drawCollidables)
+	if (_debugDrawCollidables)
 	{
 		DrawCollidables();
 	}
@@ -57,7 +59,8 @@ void ModuleCollision::RemoveCollidable(Collidable & collidable)
 
 void ModuleCollision::ToggleCollidableDrawing()
 {
-	_drawCollidables = !_drawCollidables;
+	_debugDrawCollidables = !_debugDrawCollidables;
+	LOG(INFO) << "Debug Collidable Drawing: " << std::to_string(_debugDrawCollidables);
 }
 
 void ModuleCollision::DrawCollidables() const

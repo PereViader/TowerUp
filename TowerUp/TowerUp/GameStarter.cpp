@@ -11,7 +11,9 @@ GameStarter::GameStarter() :
 {
 	_text.setFont(*game->Resources().GetFont(FontType::Sansation));
 	_text.setCharacterSize(30);
-	_text.setString("Press ENTER to start the game");
+	_text.setString("Press ENTER or CLICK to start the game");
+	const sf::FloatRect bounds = _text.getLocalBounds();
+	_text.setOrigin(bounds.left + bounds.width / 2.f, 0);
 }
 
 GameStarter::~GameStarter()
@@ -23,7 +25,7 @@ void GameStarter::Tick()
 	_text.setPosition(GetTransformable().getPosition());
 	game->Render().Draw(_text, GetEntityType());
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter) || sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 	{
 		StartGame();
 	}

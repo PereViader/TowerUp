@@ -2,6 +2,7 @@
 #include "ModuleCamera.h"
 
 #include "Game.h"
+#include "easylogging++.h"
 
 ModuleCamera::ModuleCamera()
 {
@@ -17,27 +18,22 @@ void ModuleCamera::ManualCameraControl()
 	sf::Vector2f movement;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
 	{
-		movement.y += 0.25f;
+		movement.y += 1.f;
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
 	{
-		movement.y -= 0.25f;
+		movement.y -= 1.f;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
 	{
-		movement.x += 0.25f;
+		movement.x += 1.f;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
 	{
-		movement.x -= 0.25f;
+		movement.x -= 1.f;
 	}
 
-	Move(movement);
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
-	{
-		Reset();
-	}
+	Move(movement * DEBUG_CAMERA_SPEED * game->Time().GetDeltaTime());
 }
 
 UpdateStatus ModuleCamera::PostUpdate()
@@ -66,24 +62,22 @@ void ModuleCamera::Move(sf::Vector2f movement)
 
 void ModuleCamera::SetPosition(sf::Vector2f position)
 {
-	game->Render().GetWorldView().setCenter(position);
+	if (!_manualCameraControl)
+	{
+		game->Render().GetWorldView().setCenter(position);
+	}
 }
 
 void ModuleCamera::Reset()
 {
-	//_trauma = 0;
 	_movement = sf::Vector2f(0, 0);
 	SetPosition(sf::Vector2f(0, 0));
-}
-
-void ModuleCamera::AddTrauma(float amount)
-{
-	//todo
 }
 
 void ModuleCamera::ToggleManualCameraControl()
 {
 	_manualCameraControl = !_manualCameraControl;
+	LOG(INFO) << "Debug Camera Control" << std::to_string(_manualCameraControl);
 }
 
 sf::Vector2f ModuleCamera::MouseToWorldPosition() const

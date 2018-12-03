@@ -40,7 +40,7 @@ private:
 private:
 	int _lifePoints = 0;
 	int _score = 0;
-	float _currentPlacementCooldown = 0;
+	bool _canPlaceBlock = true;
 
 	std::shared_ptr<sf::Music> _music;
 	std::shared_ptr<sf::SoundBuffer> _loseLifeSound;

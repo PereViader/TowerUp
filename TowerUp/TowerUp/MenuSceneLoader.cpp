@@ -29,5 +29,5 @@ void MenuSceneLoader::LoadScene(Game & game) const
 	highscoreDisplay->GetTransformable().setPosition(10, 5);
 
 	Entity* gameStarter = entities.AddEntityAndAttatchToRoot(new GameStarter());
-	gameStarter->GetTransformable().setPosition(WINDOW_WIDTH / 5.0f, WINDOW_HEIGHT / 2.0f);
+	gameStarter->GetTransformable().setPosition(WINDOW_WIDTH / 2.f, WINDOW_HEIGHT / 2.0f);
 }

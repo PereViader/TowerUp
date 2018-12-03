@@ -44,8 +44,6 @@ const sf::Vector2f & Block::GetVelocity() const
 	return _velocity;
 }
 
-
-
 void Block::Tick()
 {
 	GetTransformable().move(_velocity * game->Time().GetDeltaTime());
@@ -58,7 +56,6 @@ void Block::Tick()
 
 void Block::OnCollision(const CollisionInfo & info)
 {
-	//LOG(INFO) << "Collision at: " + std::to_string(info.point.x) + ", " + std::to_string(info.point.y);
 	Tower& tower = static_cast<Tower&>(*game->Entities().FindByName("Tower"));
 	if (info.collidable.GetEntity().GetName() == "Ground")
 	{

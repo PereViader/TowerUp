@@ -4,7 +4,7 @@
 #include "Game.h"
 
 DeadZone::DeadZone() :
-	_collidable(*this, sf::Vector2f(WINDOW_WIDTH, 300)),
+	_collidable(*this, sf::Vector2f((float)WINDOW_WIDTH, 300.f)),
 	Entity("DeadZone", EntityType::World)
 {
 }
