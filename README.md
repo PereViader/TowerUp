@@ -8,6 +8,11 @@ In order to accomplish this, I used the following C++ frameworks:
 - [Easylogging++ v9.96.7](https://github.com/zuhd-org/easyloggingpp)
 - [Nlohmann JSON v3.4.0](https://github.com/nlohmann/json)
 
+## Controls
+
+- Press ENTER in the main menu
+- Left click on the mouse to place the blocks
+
 ## Screenshots
 
 ![Main Menu](https://github.com/PereViader/TowerUp/blob/master/img/menu.jpg)
