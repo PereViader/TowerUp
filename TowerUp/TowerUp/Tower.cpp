@@ -1,12 +1,14 @@
 #include "stdafx.h"
 #include "Tower.h"
-#include "Game.h"
 
-#include "GameplayManager.h"
-#include "TowerBlock.h"
-#include "Ground.h"
-#include "CollisionInfo.h"
 #include "easylogging++.h"
+
+#include "Globals.h"
+#include "Game.h"
+#include "GameplayManager.h"
+#include "Ground.h"
+#include "TowerBlock.h"
+#include "CollisionInfo.h"
 
 Tower::Tower() :
 	Entity("Tower", EntityType::World)

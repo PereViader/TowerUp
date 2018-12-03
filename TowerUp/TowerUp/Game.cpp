@@ -1,10 +1,8 @@
 #include "stdafx.h"
 #include "Game.h"
 
-#include "MenuSceneLoader.h"
-#include "GameplaySceneLoader.h"
-
 #include "easylogging++.h"
+#include "MenuSceneLoader.h"
 
 Game::Game() :
 	_moduleRender(new ModuleRender()),

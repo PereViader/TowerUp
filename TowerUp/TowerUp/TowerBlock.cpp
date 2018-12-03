@@ -1,11 +1,14 @@
 #include "stdafx.h"
 #include "TowerBlock.h"
-#include "Block.h"
-#include "Game.h"
+
 #include "easylogging++.h"
-#include "CollisionInfo.h"
+
+#include "Globals.h"
+#include "Game.h"
 #include "GameplayManager.h"
+#include "Block.h"
 #include "Tower.h"
+#include "CollisionInfo.h"
 
 TowerBlock::TowerBlock() :
 	_collidable(*this, sf::Vector2f(BLOCK_SIZE, BLOCK_SIZE), sf::Vector2f(BLOCK_SIZE/2.0f, BLOCK_SIZE)),

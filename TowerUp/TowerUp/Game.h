@@ -3,8 +3,6 @@
 #include <list>
 #include <memory>
 
-#include "Globals.h"
-
 #include "Module.h"
 #include "ModuleInput.h"
 #include "ModuleEntities.h"
@@ -15,8 +13,8 @@
 #include "ModuleStorage.h"
 #include "ModuleResources.h"
 #include "ModuleAudio.h"
-#include "SceneLoader.h"
 
+class SceneLoader;
 
 enum class GameExitStatus
 {

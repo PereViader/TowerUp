@@ -1,9 +1,10 @@
 #include "stdafx.h"
 #include "Block.h"
 
+#include "easylogging++.h"
+#include "Globals.h"
 #include "Game.h"
 #include "ModuleTime.h"
-#include "easylogging++.h"
 #include "CollisionInfo.h"
 #include "Ground.h"
 #include "TowerBlock.h"

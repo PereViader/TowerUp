@@ -2,6 +2,7 @@
 #include "ModuleCamera.h"
 
 #include "Game.h"
+#include "Globals.h"
 #include "easylogging++.h"
 
 ModuleCamera::ModuleCamera()

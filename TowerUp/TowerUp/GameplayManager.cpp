@@ -1,16 +1,17 @@
 #include "stdafx.h"
 #include "GameplayManager.h"
 
+#include "easylogging++.h"
+
+#include "Globals.h"
 #include "Game.h"
+#include "MenuSceneLoader.h"
 #include "Block.h"
 #include "Swing.h"
 #include "Camera.h"
-
-#include "MenuSceneLoader.h"
 #include "ScoreDisplay.h"
 #include "LifeDisplay.h"
 
-#include "easylogging++.h"
 
 GameplayManager::GameplayManager() :
 	_lifePoints(GAMEPLAY_LIFES),

@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "GameplaySceneLoader.h"
 
+#include "easylogging++.h"
+
+#include "Globals.h"
 #include "Game.h"
 #include "TowerBlock.h"
 #include "Block.h"
@@ -12,7 +15,6 @@
 #include "ScoreDisplay.h"
 #include "LifeDisplay.h"
 
-#include "easylogging++.h"
 
 GameplaySceneLoader::GameplaySceneLoader()
 {

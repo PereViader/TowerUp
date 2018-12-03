@@ -1,9 +1,10 @@
 #include "stdafx.h"
 #include "Swing.h"
 
-#include "Gloabls.h"
-#include "Game.h"
 #include "easylogging++.h"
+
+#include "Globals.h"
+#include "Game.h"
 
 Swing::Swing() :
 	_angluarSpeed(SWING_SPEED),
