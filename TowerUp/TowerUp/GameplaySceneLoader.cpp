@@ -6,9 +6,10 @@
 #include "Block.h"
 #include "Ground.h"
 #include "Tower.h"
-#include "ScoreDisplay.h"
-#include "Camera.h"
 #include "Swing.h"
+#include "DeadZone.h"
+#include "Camera.h"
+#include "ScoreDisplay.h"
 #include "LifeDisplay.h"
 
 #include "easylogging++.h"
@@ -28,7 +29,12 @@ void GameplaySceneLoader::LoadScene(Game& game) const
 
 	ModuleEntities& entities = game.Entities();
 
-	entities.AddEntityAndAttatchToRoot(new Camera());
+	Entity* camera = entities.AddEntityAndAttatchToRoot(new Camera());
+
+	DeadZone * deadZone = static_cast<DeadZone*>(entities.AddEntityAndAttatchToRoot(new DeadZone()));
+	deadZone->GetTransformable().setPosition(0, WINDOW_HEIGHT/2.0f);
+	deadZone->Follow(camera);
+
 	entities.AddEntityAndAttatchToRoot(new Swing());
 
 	Entity* scoreDisplay = entities.AddEntityAndAttatchToRoot(new ScoreDisplay());

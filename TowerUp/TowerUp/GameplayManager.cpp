@@ -51,9 +51,16 @@ void GameplayManager::LateTick()
 
 void GameplayManager::NextBlock(BlockPlacement blockPlacement)
 {
-	if (blockPlacement == BlockPlacement::Success)
+	switch (blockPlacement)
 	{
+	case BlockPlacement::Success:
 		_camera->AimNextBlock();
+		break;
+	case BlockPlacement::Failure:
+		LoseLifePoint();
+		break;
+	default:
+		break;
 	}
 }
 

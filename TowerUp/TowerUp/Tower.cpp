@@ -25,17 +25,12 @@ void Tower::Init()
 
 void Tower::TryPlaceBlock(Block & block, Ground & ground, const CollisionInfo & collisionInfo)
 {
-	BlockPlacement blockPlacement;
+	BlockPlacement blockPlacement = BlockPlacement::Failure;
 
 	if (_topMostBlock == nullptr)
 	{
 		PlaceFirstBlock(collisionInfo.point);
 		blockPlacement = BlockPlacement::Success;
-	}
-	else
-	{
-		_gameplayManager->LoseLifePoint();
-		blockPlacement = BlockPlacement::Failure;
 	}
 
 	_gameplayManager->NextBlock(blockPlacement);
@@ -43,18 +38,13 @@ void Tower::TryPlaceBlock(Block & block, Ground & ground, const CollisionInfo & 
 
 void Tower::TryPlaceBlock(Block & block, TowerBlock & towerBlock, const CollisionInfo & collisionInfo)
 {
-	BlockPlacement blockPlacement;
+	BlockPlacement blockPlacement = BlockPlacement::Failure;
 
 	StackPosition stackPosition;
 	if (towerBlock.CanPlaceBlockOnTop(block, collisionInfo, stackPosition))
 	{
 		StackBlock(stackPosition);
 		blockPlacement = BlockPlacement::Success;
-	}
-	else
-	{
-		_gameplayManager->LoseLifePoint();
-		blockPlacement = BlockPlacement::Failure;
 	}
 
 	_gameplayManager->NextBlock(blockPlacement);

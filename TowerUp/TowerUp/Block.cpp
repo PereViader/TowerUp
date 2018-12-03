@@ -70,5 +70,11 @@ void Block::OnCollision(const CollisionInfo & info)
 		TowerBlock & towerBlock = static_cast<TowerBlock&>(info.collidable.GetEntity());
 		tower.TryPlaceBlock(*this, towerBlock, info);
 	}
+	else
+	{
+		GameplayManager & gameplayManager = static_cast<GameplayManager&>(*game->Entities().FindByName("GameplayManager"));
+		gameplayManager.NextBlock(BlockPlacement::Failure);
+	}
+
 	game->Entities().Destroy(this);
 }
