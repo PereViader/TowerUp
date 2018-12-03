@@ -13,6 +13,10 @@ In order to accomplish this, I used the following C++ frameworks:
 - Press ENTER in the main menu
 - Left click on the mouse to place the blocks
 
+## Video
+
+https://youtu.be/n5C-WBmXD28
+
 ## Screenshots
 
 ![Main Menu](https://github.com/PereViader/TowerUp/blob/master/img/menu.jpg)
