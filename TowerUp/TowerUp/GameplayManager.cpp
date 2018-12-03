@@ -54,6 +54,7 @@ void GameplayManager::NextBlock(BlockPlacement blockPlacement)
 	{
 	case BlockPlacement::Success:
 		_camera->AimNextBlock();
+		_swing->IncreaseSpeed();
 		break;
 	case BlockPlacement::Failure:
 		LoseLifePoint();

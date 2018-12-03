@@ -59,3 +59,8 @@ sf::Vector2f Swing::GetEndSwingPosition() const
 	swingRotationTransform.rotate(GetTransformable().getRotation(), GetTransformable().getPosition());
 	return  swingRotationTransform.transformPoint(GetTransformable().getPosition() + sf::Vector2f(SWING_LENGHT, 0));
 }
+
+void Swing::IncreaseSpeed()
+{
+	_angluarSpeed += SWING_SPEED_INCREASE;
+}

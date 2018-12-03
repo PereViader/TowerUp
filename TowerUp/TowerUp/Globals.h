@@ -13,6 +13,8 @@ const float BLOCK_SIZE = 80.0f;
 // because the margin can't be bigger than the block itself
 const float CENTER_BLOCK_STACK_MARGIN = 15;
 
+const float OUTER_BLOCK_STACK_MARGIN = 20;
+
 //Speed of the camera when it moves after placing each block
 const float CAMERA_SPEED = 5;
 
@@ -25,9 +27,11 @@ const float SWING_ANGLE = 120; // angle must be >= 0 && <= 180
 const float SWING_SPEED = 60;
 const float SWING_LENGHT = 300;  // swing lenght must be > 0 && < WINDOW_WIDTH
 const float SWING_WIDTH = 20;
+const float SWING_SPEED_INCREASE = 5;
 
 //Falling velocity of the blocks
 const float BLOCK_VELOCITY = 600;
 
 const int GAMEPLAY_LIFES = 3;
 const float GAMEPLAY_REWARD_HIGH_PITCH = 1.5f;
+

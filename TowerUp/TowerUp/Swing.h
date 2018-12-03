@@ -13,6 +13,8 @@ public:
 
 	sf::Vector2f GetEndSwingPosition() const;
 
+	void IncreaseSpeed();
+
 private:
 	float _movementSign = 1;
 	float _angluarSpeed;

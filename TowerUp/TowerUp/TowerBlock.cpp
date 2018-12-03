@@ -62,7 +62,7 @@ bool TowerBlock::ExtractStackPosition(const Block & block, const CollisionInfo &
 {
 	float positionDelta = block.GetTransformable().getPosition().x - GetTransformable().getPosition().x;
 
-	if (positionDelta < -BLOCK_SIZE/2.0f || positionDelta > BLOCK_SIZE / 2.0f)
+	if (std::abs(positionDelta) > BLOCK_SIZE/2.0f + OUTER_BLOCK_STACK_MARGIN)
 	{
 		//block is to the sides and can not be stacked
 		return false;
