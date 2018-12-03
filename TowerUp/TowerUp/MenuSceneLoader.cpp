@@ -6,6 +6,7 @@
 #include "ModuleEntities.h"
 #include "HighscoreDisplay.h"
 #include "GameStarter.h"
+#include "MenuManager.h"
 #include "easylogging++.h"
 
 MenuSceneLoader::MenuSceneLoader()
@@ -21,6 +22,8 @@ void MenuSceneLoader::LoadScene(Game & game) const
 	LOG(INFO) << "Loading Menu Scene";
 
 	ModuleEntities& entities = game.Entities();
+
+	entities.AddEntityAndAttatchToRoot(new MenuManager());
 
 	Entity* highscoreDisplay = entities.AddEntityAndAttatchToRoot(new HighscoreDisplay());
 	highscoreDisplay->GetTransformable().setPosition(10, 5);

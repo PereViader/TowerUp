@@ -14,6 +14,7 @@
 #include "ModuleCollision.h"
 #include "ModuleStorage.h"
 #include "ModuleResources.h"
+#include "ModuleAudio.h"
 #include "SceneLoader.h"
 
 
@@ -41,6 +42,7 @@ public:
 	ModuleCollision& Collision();
 	ModuleStorage& Storage();
 	ModuleResources& Resources();
+	ModuleAudio& Audio();
 
 private:
 	bool Init();
@@ -58,6 +60,7 @@ private:
 	std::unique_ptr<ModuleCollision> _moduleCollision;
 	std::unique_ptr<ModuleStorage> _moduleStorage;
 	std::unique_ptr<ModuleResources> _moduleResources;
+	std::unique_ptr<ModuleAudio> _moduleAudio;
 
 	std::unique_ptr<SceneLoader> _sceneLoader;
 };

@@ -14,7 +14,8 @@ Game::Game() :
 	_moduleTime(new ModuleTime()),
 	_moduleCollision(new ModuleCollision()),
 	_moduleStorage(new ModuleStorage()),
-	_moduleResources(new ModuleResources())
+	_moduleResources(new ModuleResources()),
+	_moduleAudio(new ModuleAudio())
 {
 	_modules.push_back(_moduleRender.get()); // the first because it will wait for target fps
 	_modules.push_back(_moduleStorage.get());
@@ -22,6 +23,7 @@ Game::Game() :
 	_modules.push_back(_moduleInput.get());
 	_modules.push_back(_moduleTime.get());
 	_modules.push_back(_moduleCamera.get());
+	_modules.push_back(_moduleAudio.get());
 	_modules.push_back(_moduleEntities.get());
 	_modules.push_back(_moduleCollision.get()); // must be placed after moduleEntities
 }
@@ -128,6 +130,11 @@ ModuleStorage & Game::Storage()
 ModuleResources & Game::Resources()
 {
 	return *_moduleResources;
+}
+
+ModuleAudio & Game::Audio()
+{
+	return *_moduleAudio;
 }
 
 UpdateStatus Game::Loop()

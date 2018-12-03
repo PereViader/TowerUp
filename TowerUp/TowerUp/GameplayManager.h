@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+#include <SFML/Audio.hpp>
 
 enum class ScoreReward
 {
@@ -40,6 +41,10 @@ private:
 	int _lifePoints = 0;
 	int _score = 0;
 	float _currentPlacementCooldown = 0;
+
+	std::shared_ptr<sf::Music> _music;
+	std::shared_ptr<sf::SoundBuffer> _loseLifeSound;
+	std::shared_ptr<sf::SoundBuffer> _placeBlock;
 
 	ScoreDisplay* _scoreDisplay;
 	LifeDisplay* _lifeDisplay;

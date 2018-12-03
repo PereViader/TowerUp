@@ -30,3 +30,4 @@ const float SWING_WIDTH = 20;
 const float BLOCK_VELOCITY = 400;
 
 const int GAMEPLAY_LIFES = 3;
+const float GAMEPLAY_REWARD_HIGH_PITCH = 1.5f;
