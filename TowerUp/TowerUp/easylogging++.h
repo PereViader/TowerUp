@@ -13,6 +13,8 @@
 //  https://zuhd.org
 //  http://muflihun.com
 //
+#define ELPP_FRESH_LOG_FILE
+
 
 #ifndef EASYLOGGINGPP_H
 #define EASYLOGGINGPP_H
