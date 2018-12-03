@@ -33,6 +33,5 @@ void Ground::Destroy()
 void Ground::Tick()
 {
 	_collidable.UpdateTransformable(GetTransformable());
-	game->Render().DrawDebugCircle(GetTransformable().getPosition());
 	game->Render().Draw(_shape, GetEntityType());
 }

@@ -40,7 +40,6 @@ void TowerBlock::Tick()
 	_shape.setPosition(GetTransformable().getPosition());
 
 	game->Render().Draw(_shape, GetEntityType());
-	game->Render().DrawDebugCircle(GetTransformable().getPosition());
 }
 
 void TowerBlock::SetIsTopBlock(bool value)
