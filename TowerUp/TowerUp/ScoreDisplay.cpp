@@ -7,7 +7,6 @@ ScoreDisplay::ScoreDisplay() :
 {
 	_text.setFont(*game->Resources().GetFont(FontType::Sansation));
 	_text.setCharacterSize(40);
-	_text.setPosition(170.f, 150.f);
 	_text.setFillColor(sf::Color::White);
 }
 

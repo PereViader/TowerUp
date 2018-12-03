@@ -7,9 +7,11 @@
 #include "MenuSceneLoader.h"
 #include "Camera.h"
 #include "Swing.h"
+#include "LifeDisplay.h"
 
 
 GameplayManager::GameplayManager() :
+	_lifePoints(GAMEPLAY_LIFES),
 	Entity("GameplayManager", EntityType::World)
 {
 }
@@ -23,6 +25,9 @@ void GameplayManager::Init()
 	_scoreDisplay = static_cast<ScoreDisplay*>(game->Entities().FindByName("ScoreDisplay"));
 	_camera = static_cast<Camera*>(game->Entities().FindByName("Camera"));
 	_swing = static_cast<Swing*>(game->Entities().FindByName("Swing"));
+	_lifeDisplay = static_cast<LifeDisplay*>(game->Entities().FindByName("LifeDisplay"));
+
+	_lifeDisplay->SetLifeCount(_lifePoints);
 }
 
 void GameplayManager::LateTick()
@@ -36,9 +41,12 @@ void GameplayManager::LateTick()
 	}
 }
 
-void GameplayManager::NextBlock()
+void GameplayManager::NextBlock(BlockPlacement blockPlacement)
 {
-	_camera->AimNextBlock();
+	if (blockPlacement == BlockPlacement::Success)
+	{
+		_camera->AimNextBlock();
+	}
 }
 
 void GameplayManager::AwardScore(ScoreReward scoreReward)
@@ -50,6 +58,7 @@ void GameplayManager::AwardScore(ScoreReward scoreReward)
 void GameplayManager::LoseLifePoint()
 {
 	_lifePoints -= 1;
+	_lifeDisplay->SetLifeCount(_lifePoints);
 	LOG(INFO) << "Lost life point. Current life points: " << _lifePoints;
 	if (_lifePoints <= 0)
 	{

@@ -28,3 +28,5 @@ const float SWING_WIDTH = 20;
 
 //Falling velocity of the blocks
 const float BLOCK_VELOCITY = 400;
+
+const int GAMEPLAY_LIFES = 3;

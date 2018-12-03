@@ -9,6 +9,7 @@
 #include "ScoreDisplay.h"
 #include "Camera.h"
 #include "Swing.h"
+#include "LifeDisplay.h"
 
 #include "easylogging++.h"
 
@@ -32,6 +33,9 @@ void GameplaySceneLoader::LoadScene(Game& game) const
 
 	Entity* scoreDisplay = entities.AddEntityAndAttatchToRoot(new ScoreDisplay());
 	scoreDisplay->GetTransformable().setPosition(10, 5);
+
+	Entity* lifeDisplay = entities.AddEntityAndAttatchToRoot(new LifeDisplay());
+	lifeDisplay->GetTransformable().setPosition(10, 50);
 
 	GameplayManager * gameplayManager = static_cast<GameplayManager*>(entities.AddEntityAndAttatchToRoot(new GameplayManager()));
 
