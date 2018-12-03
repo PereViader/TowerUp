@@ -9,6 +9,7 @@ enum class ScoreReward
 
 class ScoreDisplay;
 class Camera;
+class Swing;
 
 class GameplayManager :
 	public Entity
@@ -18,7 +19,7 @@ public:
 	virtual ~GameplayManager();
 
 	virtual void Init() override;
-	virtual void Tick() override;
+	virtual void LateTick() override;
 
 	void NextBlock();
 	void AwardScore(ScoreReward);
@@ -26,7 +27,7 @@ public:
 	void EndGameplay();
 
 private:
-	void PlaceBlockAtMousePosition();
+	void PlaceBlockAtPosition(const sf::Vector2f& position);
 
 private:
 	int _lifePoints;
@@ -36,5 +37,6 @@ private:
 
 	ScoreDisplay* _scoreDisplay;
 	Camera* _camera;
+	Swing* _swing;
 };
 

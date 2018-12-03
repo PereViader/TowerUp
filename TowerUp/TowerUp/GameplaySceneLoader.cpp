@@ -8,6 +8,7 @@
 #include "Tower.h"
 #include "ScoreDisplay.h"
 #include "Camera.h"
+#include "Swing.h"
 
 #include "easylogging++.h"
 
@@ -27,6 +28,7 @@ void GameplaySceneLoader::LoadScene(Game& game) const
 	ModuleEntities& entities = game.Entities();
 
 	entities.AddEntityAndAttatchToRoot(new Camera());
+	entities.AddEntityAndAttatchToRoot(new Swing());
 
 	Entity* scoreDisplay = entities.AddEntityAndAttatchToRoot(new ScoreDisplay());
 	scoreDisplay->GetTransformable().setPosition(10, 5);

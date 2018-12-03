@@ -13,7 +13,18 @@ const float BLOCK_SIZE = 80.0f;
 // because the margin can't be bigger than the block itself
 const float CENTER_BLOCK_STACK_MARGIN = 15;
 
-// Time between each block placement
+// Cooldown that must be wait between each block placement
 const float TIME_BETWEEN_BLOCKS = 1;
 
+//Speed of the camera when it moves after placing each block
 const float CAMERA_SPEED = 5;
+
+//Swing parameters
+//Angle the swing moves from-to
+const float SWING_ANGLE = 120; // angle must be >= 0 && <= 180
+const float SWING_SPEED = 60;
+const float SWING_LENGHT = 300;  // swing lenght must be > 0 && < WINDOW_WIDTH
+const float SWING_WIDTH = 20;
+
+//Falling velocity of the blocks
+const float BLOCK_VELOCITY = 400;

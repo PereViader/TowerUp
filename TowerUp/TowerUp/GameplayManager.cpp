@@ -6,6 +6,7 @@
 #include "ScoreDisplay.h"
 #include "MenuSceneLoader.h"
 #include "Camera.h"
+#include "Swing.h"
 
 
 GameplayManager::GameplayManager() :
@@ -21,16 +22,17 @@ void GameplayManager::Init()
 {
 	_scoreDisplay = static_cast<ScoreDisplay*>(game->Entities().FindByName("ScoreDisplay"));
 	_camera = static_cast<Camera*>(game->Entities().FindByName("Camera"));
+	_swing = static_cast<Swing*>(game->Entities().FindByName("Swing"));
 }
 
-void GameplayManager::Tick()
+void GameplayManager::LateTick()
 {
 	_currentPlacementCooldown -= game->Time().GetDeltaTime();
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && _currentPlacementCooldown < 0)
 	{
 		_currentPlacementCooldown = TIME_BETWEEN_BLOCKS;
-		PlaceBlockAtMousePosition();
+		PlaceBlockAtPosition(_swing->GetEndSwingPosition());
 	}
 }
 
@@ -66,9 +68,9 @@ void GameplayManager::EndGameplay()
 	game->ChangeScene(std::make_unique<MenuSceneLoader>());
 }
 
-void GameplayManager::PlaceBlockAtMousePosition()
+void GameplayManager::PlaceBlockAtPosition(const sf::Vector2f& position)
 {
 	Block * block = static_cast<Block*>(game->Entities().AddEntityAndAttatchToRoot(new Block()));
-	block->GetTransformable().setPosition(game->Camera().MouseToWorldPosition());
-	block->SetVelocity(sf::Vector2f(0, 100));
+	block->GetTransformable().setPosition(position);
+	block->SetVelocity(sf::Vector2f(0, BLOCK_VELOCITY));
 }
